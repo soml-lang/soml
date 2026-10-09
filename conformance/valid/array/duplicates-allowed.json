@@ -1,0 +1,20 @@
+{
+	"a": [
+		{
+			"type": "int",
+			"value": "1"
+		},
+		{
+			"type": "int",
+			"value": "1"
+		},
+		{
+			"type": "string",
+			"value": "x"
+		},
+		{
+			"type": "string",
+			"value": "x"
+		}
+	]
+}

@@ -1,0 +1,12 @@
+{
+	"a": [
+		{
+			"type": "float",
+			"value": "infinity"
+		},
+		{
+			"type": "float",
+			"value": "-infinity"
+		}
+	]
+}

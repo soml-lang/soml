@@ -1,0 +1,11 @@
+{
+	"document": "birthday: 2000-02-29 # birthday\n",
+	"path": [
+		"birthday"
+	],
+	"value": {
+		"type": "date",
+		"value": "1582-10-10"
+	},
+	"expected": "birthday: 1582-10-10 # birthday\n"
+}

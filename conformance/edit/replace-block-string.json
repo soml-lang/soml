@@ -1,0 +1,11 @@
+{
+	"document": "a:\n\t'''\n\tline one\n\tline two\n\t'''\nb: 2\n",
+	"path": [
+		"a"
+	],
+	"value": {
+		"type": "string",
+		"value": "one line"
+	},
+	"expected": "a: 'one line'\nb: 2\n"
+}

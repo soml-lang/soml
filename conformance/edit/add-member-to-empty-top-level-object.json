@@ -1,0 +1,11 @@
+{
+	"document": "{}\n",
+	"path": [
+		"a"
+	],
+	"value": {
+		"type": "int",
+		"value": "1"
+	},
+	"expected": "{\n\ta: 1\n}\n"
+}

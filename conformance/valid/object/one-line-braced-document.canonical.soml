@@ -1,0 +1,5 @@
+healthcheck: {
+	grace: 1.5
+	interval: 10
+	path: '/health'
+}

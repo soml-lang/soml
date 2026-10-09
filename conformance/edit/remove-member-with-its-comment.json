@@ -1,0 +1,7 @@
+{
+	"document": "a: 1 # One\nb: 2 # Two\nc: 3\n",
+	"path": [
+		"b"
+	],
+	"expected": "a: 1 # One\nc: 3\n"
+}

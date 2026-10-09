@@ -1,0 +1,20 @@
+{
+	"document": "a: {x: 1}\n",
+	"path": [
+		"a",
+		"x"
+	],
+	"value": {
+		"y": [
+			{
+				"type": "int",
+				"value": "1"
+			},
+			{
+				"type": "int",
+				"value": "2"
+			}
+		]
+	},
+	"expected": "a: {x: {y: [1, 2]}}\n"
+}

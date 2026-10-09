@@ -1,0 +1,32 @@
+{
+	"big": {
+		"type": "int",
+		"value": "1000000"
+	},
+	"db": {
+		"host": {
+			"type": "string",
+			"value": "h"
+		}
+	},
+	"mask": {
+		"type": "int",
+		"value": "255"
+	},
+	"mode": {
+		"type": "int",
+		"value": "420"
+	},
+	"name": {
+		"type": "string",
+		"value": "x"
+	},
+	"path": {
+		"type": "string",
+		"value": "a\tb"
+	},
+	"wait": {
+		"type": "duration",
+		"value": "5400000000000"
+	}
+}

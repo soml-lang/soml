@@ -1,0 +1,8 @@
+{
+	"__proto__": {
+		"polluted": {
+			"type": "bool",
+			"value": "true"
+		}
+	}
+}

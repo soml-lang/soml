@@ -1,0 +1,14 @@
+{
+	"a": [
+		{
+			"name": {
+				"type": "string",
+				"value": "x"
+			},
+			"email": {
+				"type": "string",
+				"value": "y"
+			}
+		}
+	]
+}

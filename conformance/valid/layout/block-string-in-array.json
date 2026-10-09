@@ -1,0 +1,16 @@
+{
+	"x": [
+		{
+			"type": "int",
+			"value": "1"
+		},
+		{
+			"type": "string",
+			"value": "t"
+		},
+		{
+			"type": "int",
+			"value": "2"
+		}
+	]
+}

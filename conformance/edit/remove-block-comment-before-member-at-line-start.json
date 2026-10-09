@@ -1,0 +1,7 @@
+{
+	"document": "/* Note */ a: 1\nb: 2\n",
+	"path": [
+		"a"
+	],
+	"expected": "b: 2\n"
+}

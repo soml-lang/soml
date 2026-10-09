@@ -1,0 +1,1237 @@
+## Settings for a self-hosted Quarry installation.
+##
+## Quarry is a code-hosting platform: Git repositories, issues, merge requests,
+## CI pipelines, a container registry, and static sites. One file configures
+## every service, and each service reads only its own section and `global`.
+##
+## Values that are left out take the default of the release that is deployed,
+## so set only what you need to change. Do not copy this file as a whole: when
+## a default changes in a new release, a copied value keeps the old one.
+##
+## Docs: https://docs.quarry.example/install/settings
+
+#
+#Conventions in this file:
+#
+#- A duration is written with its unit, such as `30s` or `1h30m`. A bare number
+#  is never a length of time.
+#- A size is in bytes unless the key says otherwise, as in `max-size-mb`.
+#- A commented-out key shows a setting with its default, or an example. Remove
+#  the `#` to use it.
+#
+
+
+## Settings that more than one service reads.
+[global]
+## The public host name. Every URL that Quarry writes, in emails, in the
+## API, and in webhooks, starts with it, so change it only during a
+## maintenance window.
+host = 'code.example.com'
+# The port is left out of URLs when it is the default for the scheme.
+port = 443
+https = true
+## `ce` for the Community Edition, or `ee` for the Enterprise Edition, which
+## needs a license key (see `license` below).
+edition = 'ee'
+## The time zone for logs, scheduled jobs, and the times that the web
+## interface shows to people who have not chosen one.
+time-zone = 'UTC'
+## How many old revisions of a deployment to keep, for a rollback.
+revision-history-limit = 10
+## How long a session lasts without activity, in the web interface.
+session-timeout = "PT168H"
+
+## The images of every service come from this registry, unless a service
+## sets its own `image`.
+[global.image]
+registry = 'registry.quarry.example'
+pull-policy = 'IfNotPresent'
+# pull-secrets: [
+# 	{name: 'quarry-registry'}
+# ]
+# The tag of every image. It is the release by default.
+# tag: '18.4.2'
+
+## Labels and annotations for every pod. A service can add its own.
+[global.pod]
+
+[global.pod.labels]
+'app.kubernetes.io/part-of' = 'quarry'
+'app.kubernetes.io/managed-by' = 'quarry-operator'
+team = 'platform'
+
+[global.pod.annotations]
+'cluster-autoscaler.kubernetes.io/safe-to-evict' = 'true'
+
+## The ingress for the web interface, the API, the registry, and Pages.
+[global.ingress]
+enabled = true
+class = 'nginx'
+
+# Set this when a load balancer in front of the ingress ends TLS.
+# tls-terminated-upstream: true
+[global.ingress.annotations]
+'nginx.ingress.kubernetes.io/proxy-body-size' = '512m'
+'nginx.ingress.kubernetes.io/proxy-read-timeout' = '3600'
+'nginx.ingress.kubernetes.io/proxy-buffering' = 'off'
+
+[global.ingress.tls]
+enabled = true
+# A secret with `tls.crt` and `tls.key`. When it is left out, the
+# certificate manager below makes one.
+secret-name = 'quarry-wildcard-tls'
+
+## Certificates from an ACME authority, such as Let's Encrypt.
+[global.certificates]
+enabled = false
+# Renew a certificate this long before it expires.
+renew-before = "PT720H"
+
+[global.certificates.issuer]
+email = 'ops@example.com'
+server = 'https://acme-v02.api.letsencrypt.org/directory'
+# Use the staging server while you test, because the production
+# server limits how many certificates a domain can get in a week.
+# server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+
+## The license of the Enterprise Edition. It is read from a secret, so that
+## it is not in this file.
+[global.license]
+secret = 'quarry-license'
+key = 'license'
+
+## Settings for outgoing HTTP requests: webhooks, imports, and mirrors.
+[global.outbound]
+# Requests to these networks are refused, so that a webhook cannot
+# reach a service inside the cluster.
+deny-networks = [
+	'10.0.0.0/8',
+	'172.16.0.0/12',
+	'192.168.0.0/16',
+	'169.254.0.0/16',
+	'fd00::/8',
+]
+# Hosts that are allowed even when they are in a denied network.
+allow-hosts = ['ci-cache.internal.example.com', 'ldap.internal.example.com']
+connect-timeout = "PT5S"
+read-timeout = "PT30S"
+# proxy: 'http://proxy.internal.example.com:3128'
+# no-proxy: ['localhost', '.svc.cluster.local']
+
+## The web interface and the API.
+[web]
+enabled = true
+replicas = 4
+## Each worker is one process. Use about one worker for each CPU core.
+workers = 4
+## A request that takes longer than this is stopped and logged as slow.
+request-timeout = "PT1M"
+## A worker that uses more memory than this is restarted after it ends
+## its current request.
+memory-limit = 1_288_490_188
+# health-check: {
+# 	# The paths that the load balancer may use. Requests to them are not
+# 	# logged, and are allowed only from these networks.
+# 	paths: ['/-/liveness', '/-/readiness']
+# 	allowed-networks: ['10.0.0.0/8']
+# }
+
+[web.threads]
+min = 4
+max = 4
+
+[web.shutdown]
+# Wait this long for the requests in progress before a pod stops.
+grace-period = "PT30S"
+# The load balancer needs some time to stop sending new requests.
+blackout = "PT10S"
+
+[web.resources.requests]
+cpu = '1'
+memory = '2.5Gi'
+
+[web.resources.limits]
+memory = '4Gi'
+
+## Pages that are shown for an error, by HTTP status. The files are in
+## `public/` of the web image.
+[web.error-pages]
+400 = 'errors/400.html'
+404 = 'errors/404.html'
+422 = 'errors/422.html'
+500 = 'errors/500.html'
+502 = 'errors/502.html'
+503 = 'errors/maintenance.html'
+
+## Content Security Policy. The defaults allow only this host.
+[web.content-security-policy]
+enabled = true
+report-only = false
+
+[web.content-security-policy.directives]
+default-src = ["'self'"]
+script-src = ["'self'", "'strict-dynamic'"]
+style-src = ["'self'", "'unsafe-inline'"]
+img-src = ["'self'", 'data:', 'blob:', 'https://avatars.example.com']
+connect-src = ["'self'", 'wss://code.example.com']
+frame-ancestors = ["'none'"]
+# report-uri: 'https://csp.example.com/report'
+
+## Rate limits, by the path of a request. A client that sends more than
+## `requests` in `period` gets status 429 until the period ends. A path
+## ends with `*` to match every path that starts with it.
+[web.rate-limits]
+enabled = true
+
+[web.rate-limits.'/users/sign_in']
+requests = 10
+period = "PT1M"
+
+[web.rate-limits.'/users/password']
+requests = 5
+period = "PT1M"
+
+[web.rate-limits.'/api/v4/*']
+requests = 2_000
+period = "PT1M"
+# Authenticated requests have a higher limit.
+authenticated-requests = 7_200
+
+[web.rate-limits.'/api/v4/projects/*/repository/files/*']
+requests = 500
+period = "PT1M"
+
+[web.rate-limits.'/-/graphql']
+requests = 600
+period = "PT1M"
+
+## Settings for the GraphQL API.
+[web.graphql]
+max-complexity = 250
+max-depth = 15
+# A query that takes longer than this is stopped.
+timeout = "PT30S"
+
+## The session cookie.
+[web.session]
+cookie-name = '_quarry_session'
+secure = true
+same-site = 'lax'
+# Sign in again after this long, even with activity.
+max-age = "PT720H"
+
+## Git over SSH.
+[ssh]
+enabled = true
+replicas = 2
+## The port that people use in a clone URL, such as
+## `ssh://git@code.example.com:22/group/project.git`. Behind a load balancer,
+## this is the port of the load balancer, not of the pod.
+port = 22
+listen-port = 2222
+## Host keys are in this secret, one entry for each key type. Keep them
+## when you move to a new cluster, or every client gets a warning that the
+## host key changed.
+host-keys-secret = 'quarry-ssh-host-keys'
+# The algorithms that clients may use, in order of preference.
+ciphers = [
+	'chacha20-poly1305@openssh.com',
+	'aes256-gcm@openssh.com',
+	'aes128-gcm@openssh.com',
+	'aes256-ctr',
+]
+key-exchange = [
+	'sntrup761x25519-sha512@openssh.com',
+	'curve25519-sha256',
+	'curve25519-sha256@libssh.org',
+]
+macs = ['hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com']
+## The text that a client shows before authentication.
+banner = '''
+This system is for the use of authorized users only. Activity on it is
+logged, and may be reviewed by the security team.'''
+## Close a connection that sends nothing for this long.
+idle-timeout = "PT15M"
+# A client that does not authenticate within this time is disconnected.
+login-grace-time = "PT1M"
+max-sessions = 10
+## Proxy protocol, so that the SSH server sees the address of the client
+## rather than the address of the load balancer.
+proxy-protocol = false
+
+[ssh.resources.requests]
+cpu = '100m'
+memory = '64Mi'
+
+## Repository storage. Each shard is a set of servers that holds a part of
+## the repositories. New repositories go to the shards with weight, in
+## proportion to it.
+[repositories]
+## The file mode of new repository directories, and of the files in them.
+## The server's umask is applied too.
+directory-mode = 0o2770
+file-mode = 0o640
+
+[[repositories.shards]]
+name = 'default'
+weight = 100
+replicas = 3
+storage-class = 'fast-ssd'
+size = '2Ti'
+
+[[repositories.shards]]
+name = 'archive'
+# No new repositories, but existing ones are still served.
+weight = 0
+replicas = 2
+storage-class = 'standard'
+size = '8Ti'
+# {
+# 	name: 'eu'
+# 	weight: 50
+# 	replicas: 3
+# 	storage-class: 'fast-ssd-eu'
+# 	size: '2Ti'
+# }
+
+## Housekeeping repacks repositories and removes unreachable objects.
+[repositories.housekeeping]
+enabled = true
+# Run a full repack after this many pushes, and an incremental one
+# after every push.
+full-repack-after-pushes = 200
+# Objects that are unreachable but newer than this are kept, so that a
+# push in progress does not lose them.
+prune-grace-period = "PT336H"
+
+# The hours in which housekeeping may run, in `global.time-zone`.
+[repositories.housekeeping.window]
+start = '01:00'
+duration = "PT4H"
+
+## Limits for one repository.
+[repositories.limits]
+# A push of a file larger than this is refused.
+max-file-size = 104_857_600
+max-repository-size = 10_737_418_240
+# The number of files that a diff shows before it is cut.
+max-diff-files = 1_000
+max-diff-lines = 50_000
+
+## Commands that a server runs on a repository are stopped after these
+## durations.
+[repositories.timeouts]
+default = "PT55S"
+fast = "PT10S"
+medium = "PT30S"
+# Clones of very large repositories can take a long time.
+clone = "PT3H"
+
+## Repositories are checked for corruption on this schedule.
+[repositories.verification]
+enabled = true
+# A repository is verified again this long after the last check.
+interval = "PT168H"
+# The first check after this date, so that a new cluster does not
+# check every repository at once.
+not-before = 2026-11-01T02:00:00Z
+
+## The PostgreSQL database.
+[database]
+host = 'postgres-primary.internal.example.com'
+port = 5432
+name = 'quarry_production'
+user = 'quarry'
+## A query that runs longer than this is stopped. Migrations and
+## background jobs set their own, longer timeouts.
+statement-timeout = "PT15S"
+lock-timeout = "PT5S"
+## SQL that runs on every new connection.
+setup = '''
+SET application_name = 'quarry';
+SET idle_in_transaction_session_timeout = '60s';
+SET statement_timeout = '15s';'''
+
+[database.password]
+secret = 'quarry-postgres'
+key = 'password'
+
+## Read-only queries go to the replicas, unless a replica is more than
+## `max-replication-lag` behind the primary.
+[database.replicas]
+hosts = [
+	'postgres-replica-1.internal.example.com',
+	'postgres-replica-2.internal.example.com',
+]
+max-replication-lag = "PT1M"
+# Check each replica's lag this often.
+check-interval = "PT5S"
+
+[database.pool]
+# The connections of each process. With 4 workers and 4 threads, a web
+# pod needs at least 16.
+size = 20
+# A connection that is not used for this long is closed.
+idle-timeout = "PT5M"
+# Wait this long for a free connection before an error.
+checkout-timeout = "PT10S"
+
+[database.ssl]
+mode = 'verify-full'
+root-certificate = '/etc/quarry/postgres/ca.crt'
+
+## Settings for migrations, which run before a new release starts.
+[database.migrations]
+# Migrations can take a long time on a large database.
+statement-timeout = "PT1H"
+# Run the migrations that can run after the release starts, separately.
+run-post-deployment = false
+# lock-retries: 40
+# lock-retry-interval: 15s
+
+## The partitioned tables keep this much history. Older partitions are
+## dropped.
+[database.retention]
+audit-events = "PT8760H"
+web-hook-logs = "PT168H"
+ci-job-logs = "PT2160H"
+# user-activity: 17520h
+
+## The cache, sessions, and job queues are in Redis. Each can use its own
+## instance; when `instances` leaves one out, it uses `default`.
+[redis]
+## Keys in the cache expire after this long, unless the code that writes
+## them sets a different time.
+cache-ttl = "PT8H"
+
+[redis.default]
+host = 'redis.internal.example.com'
+port = 6379
+db = 0
+ssl = false
+connect-timeout = "PT1S"
+read-timeout = "PT1S"
+write-timeout = "PT1S"
+
+[redis.default.password]
+secret = 'quarry-redis'
+key = 'password'
+
+[redis.instances.cache]
+host = 'redis-cache.internal.example.com'
+# The cache can be lost without harm, so it does not need
+# persistence or replicas.
+db = 0
+
+[redis.instances.sessions]
+sentinels = [
+	{ host = 'redis-sentinel-1.internal.example.com', port = 26379 },
+	{ host = 'redis-sentinel-2.internal.example.com', port = 26379 },
+	{ host = 'redis-sentinel-3.internal.example.com', port = 26379 },
+]
+master-name = 'quarry-sessions'
+
+# queues: {
+# 	host: 'redis-queues.internal.example.com'
+# }
+[redis.instances.rate-limiting]
+host = 'redis-cache.internal.example.com'
+db = 2
+
+## Background jobs. Each group of workers handles some queues. A job in a
+## queue that no group handles waits until one does.
+[jobs]
+## A job that runs longer than this is stopped, and counts as failed.
+timeout = "PT1H"
+# The jobs that a group stops after `shutdown-timeout` are put back in
+# their queue.
+shutdown-timeout = "PT25S"
+
+[[jobs.groups]]
+name = 'default'
+replicas = 4
+concurrency = 20
+queues = ['default', 'mailers', 'cronjobs', 'pipeline_processing']
+
+[[jobs.groups]]
+name = 'git'
+replicas = 2
+concurrency = 10
+# Jobs that change repositories, which use more memory.
+queues = ['post_receive', 'repository_update', 'repository_import']
+memory-limit = 4_294_967_296
+
+[[jobs.groups]]
+name = 'search'
+replicas = 1
+concurrency = 5
+queues = ['search_indexing']
+
+[[jobs.groups]]
+name = 'low-priority'
+replicas = 1
+concurrency = 5
+queues = ['housekeeping', 'reports', 'export']
+
+## A job that fails is tried again after a backoff that grows with each
+## attempt, up to `max-backoff`.
+[jobs.retry]
+attempts = 25
+initial-backoff = "PT15S"
+max-backoff = "PT6H"
+# The backoff is multiplied by this after each attempt.
+multiplier = 2.0
+# A random part of the backoff, so that many failed jobs do not all
+# run again at the same time.
+jitter = 0.15
+
+## Jobs that run on a schedule. A schedule is a cron expression, in
+## `global.time-zone`.
+[jobs.cron]
+
+[jobs.cron.expire-build-artifacts]
+schedule = '*/7 * * * *'
+enabled = true
+
+[jobs.cron.remove-expired-members]
+schedule = '10 0 * * *'
+enabled = true
+
+[jobs.cron.prune-old-events]
+schedule = '0 */6 * * *'
+enabled = true
+
+[jobs.cron.repository-check]
+schedule = '20 * * * *'
+enabled = true
+
+[jobs.cron.update-usage-statistics]
+schedule = '0 3 * * 0'
+# Usage statistics are sent to the vendor once a week, without any
+# names or contents.
+enabled = false
+
+[jobs.cron.stuck-pipelines]
+schedule = '0 * * * *'
+enabled = true
+
+## Email.
+[mail]
+enabled = true
+reply-to = 'noreply@example.com'
+# The subject of every email starts with this.
+subject-prefix = '[Quarry]'
+## The footer of every email. It can use `{{ host }}` and `{{ settings }}`.
+footer = '''
+You are getting this email because of your notification settings on
+{{ host }}. To change them, go to {{ settings }}.'''
+# Service desk lets people outside the instance open an issue by email.
+# service-desk: {
+# 	enabled: false
+# 	address: 'support+%{key}@example.com'
+# }
+
+[mail.from]
+address = 'quarry@example.com'
+name = 'Quarry'
+
+[mail.smtp]
+host = 'smtp.example.com'
+port = 587
+user = 'quarry@example.com'
+# `starttls`, `tls`, or `none`.
+encryption = 'starttls'
+authentication = 'login'
+open-timeout = "PT30S"
+read-timeout = "PT1M"
+# pool: true
+
+[mail.smtp.password]
+secret = 'quarry-smtp'
+key = 'password'
+
+## Incoming email, which lets people reply to a notification to comment.
+[mail.incoming]
+enabled = false
+# The `%{key}` is replaced with the key of the thread.
+address = 'incoming+%{key}@example.com'
+
+[mail.incoming.imap]
+host = 'imap.example.com'
+port = 993
+ssl = true
+mailbox = 'inbox'
+# Check for new email this often when the server does not support
+# IDLE.
+poll-interval = "PT1M"
+
+## Sign-in.
+[authentication]
+
+## Allow new accounts. When this is false, only an administrator can make
+## an account, or an account is made at the first sign-in with a provider
+## below.
+[authentication.sign-up]
+enabled = false
+# New accounts wait for an administrator.
+require-approval = true
+# Only these email domains can sign up.
+allowed-domains = ['example.com', 'contractors.example.com']
+confirm-email = true
+
+[authentication.password]
+min-length = 12
+# Check new passwords against a list of leaked passwords.
+check-breached = true
+# A sign-in with a password is refused after this many failures, for
+# `lockout-duration`.
+max-attempts = 10
+lockout-duration = "PT10M"
+# A link to reset a password works for this long.
+reset-token-lifetime = "PT2H"
+
+## Two-factor authentication.
+[authentication.two-factor]
+# `optional`, `required`, or `required-for-admins`.
+policy = 'required-for-admins'
+# After the policy changes, people have this long to set it up.
+grace-period = "PT48H"
+methods = ['totp', 'webauthn']
+# The issuer that an authenticator app shows.
+totp-issuer = 'Quarry'
+
+## Personal access tokens.
+[authentication.tokens]
+# A token without an expiry date gets this one.
+default-lifetime = "PT720H"
+max-lifetime = "PT8760H"
+# Tokens expire at the start of this day, in UTC, so that every token
+# has a date that people can see.
+# The oldest tokens were made before expiry dates were required.
+legacy-expiry = 2027-03-31T00:00:00Z
+
+## Sign-in with other providers. A provider's `id` is its name in the
+## URL of its callback, so do not change it after people use it.
+[[authentication.providers]]
+id = 'oidc-corporate'
+type = 'openid-connect'
+label = 'Corporate sign-in'
+issuer = 'https://login.example.com'
+client-id = 'quarry'
+scopes = ['openid', 'profile', 'email', 'groups']
+# Make an account at the first sign-in.
+auto-create = true
+# The members of these groups are administrators.
+admin-groups = ['quarry-admins']
+
+[authentication.providers.client-secret]
+secret = 'quarry-oidc'
+key = 'client-secret'
+
+[[authentication.providers]]
+id = 'github'
+type = 'oauth2'
+label = 'GitHub'
+client-id = 'Iv1.4b9c2e7f0a1d3c5b'
+# GitHub accounts can only sign in to an existing account that is
+# linked to them.
+auto-create = false
+
+[authentication.providers.client-secret]
+secret = 'quarry-github-oauth'
+key = 'client-secret'
+
+## LDAP, for directories that do not have OpenID Connect.
+[authentication.ldap]
+enabled = false
+
+[[authentication.ldap.servers]]
+id = 'main'
+label = 'Directory'
+host = 'ldap.internal.example.com'
+port = 636
+encryption = 'simple_tls'
+bind-dn = 'CN=Quarry,OU=Services,DC=example,DC=com'
+base = 'OU=People,DC=example,DC=com'
+# Only the people in this group can sign in.
+user-filter = '(memberOf=CN=Developers,OU=Groups,DC=example,DC=com)'
+uid = 'sAMAccountName'
+timeout = "PT10S"
+# Check that every account is still in the directory this often.
+sync-interval = "PT1H"
+
+[authentication.ldap.servers.password]
+secret = 'quarry-ldap'
+key = 'password'
+
+[authentication.ldap.servers.attributes]
+username = ['uid', 'sAMAccountName']
+email = ['mail', 'email', 'userPrincipalName']
+name = 'cn'
+
+## CI pipelines.
+[ci]
+enabled = true
+## A job that runs longer than this is stopped. A project can set a shorter
+## timeout, but not a longer one.
+max-job-timeout = "PT3H"
+default-job-timeout = "PT1H"
+## Pipelines that wait for a runner for longer than this are cancelled.
+pending-timeout = "PT24H"
+# Delete pipelines older than this, with their jobs and logs. Leave it
+# out to keep every pipeline.
+# pipeline-retention: 8760h
+
+## Logs and artifacts.
+[ci.artifacts]
+# Artifacts expire after this, unless the job sets `expire-in`.
+default-expiry = "PT720H"
+max-size-mb = 1_024
+# Keep the artifacts of the latest successful pipeline of each branch,
+# even after they expire.
+keep-latest = true
+
+[ci.logs]
+# Logs larger than this are cut, and the end is kept.
+max-size-mb = 100
+# Mask these patterns in every log, in addition to masked variables.
+masked-patterns = [
+	'(?i)aws_secret_access_key\s*=\s*\S+',
+	'ghp_[A-Za-z0-9]{36}',
+	'qrt-[A-Za-z0-9_-]{20,}',
+]
+
+## Runners that the instance provides to every project.
+[ci.runners]
+enabled = true
+replicas = 2
+# The jobs that one runner pod can run at the same time.
+concurrent = 10
+# Ask for new jobs this often.
+check-interval = "PT3S"
+executor = 'kubernetes'
+## A script that runs before every job, in the job's container.
+pre-job-script = '''
+#!/bin/sh
+set -eu
+# Trust the certificate authority of the company, for clones and downloads.
+if [ -f /etc/quarry-ci/ca.crt ]; then
+	cp /etc/quarry-ci/ca.crt /usr/local/share/ca-certificates/company.crt
+	update-ca-certificates >/dev/null 2>&1 || true
+fi
+git config --global http.lowSpeedLimit 1000
+git config --global http.lowSpeedTime 60'''
+
+[ci.runners.kubernetes]
+namespace = 'quarry-ci'
+# The image of a job that does not set `image`.
+default-image = 'alpine:3.22'
+# Pull an image even when the node has it, so that a tag that moved
+# is not served from the cache.
+pull-policy = ['always', 'if-not-present']
+cpu-request = '500m'
+cpu-limit = '2'
+memory-request = '1Gi'
+memory-limit = '4Gi'
+# A pod that does not start within this time fails the job.
+poll-timeout = "PT10M"
+privileged = false
+tolerations = [
+	{ key = 'dedicated', operator = 'Equal', value = 'ci', effect = 'NoSchedule' },
+]
+
+[ci.runners.kubernetes.node-selector]
+'quarry.example.com/pool' = 'ci'
+
+## The cache between jobs, in object storage.
+[ci.runners.cache]
+type = 's3'
+bucket = 'quarry-ci-cache'
+shared = true
+# Remove cache files that were not used for this long.
+max-age = "PT336H"
+
+## Variables for every pipeline of every project. A project can replace
+## them. Do not put secrets here, because every job can read them.
+[ci.variables]
+DOCKER_DRIVER = 'overlay2'
+GIT_DEPTH = '20'
+GIT_STRATEGY = 'fetch'
+FF_USE_FASTZIP = 'true'
+TRANSFER_METER_FREQUENCY = '5s'
+
+## The container registry.
+[registry]
+enabled = true
+host = 'registry.code.example.com'
+replicas = 3
+## Tokens that clients use to pull and push expire after this long.
+token-lifetime = "PT15M"
+# Keep only this many tags of each image. Older tags are removed when
+# garbage collection runs.
+# keep-tags: 50
+
+[registry.storage]
+type = 's3'
+bucket = 'quarry-registry'
+region = 'eu-west-1'
+# Upload layers in parts of this size.
+chunk-size = 10_485_760
+# Requests to the bucket go through this endpoint, such as a
+# compatible store.
+# endpoint: 'https://s3.internal.example.com'
+
+## Remove the layers that no tag refers to.
+[registry.garbage-collection]
+enabled = true
+# Wait this long after a tag is removed, so that a push in progress
+# can still refer to its layers.
+review-delay = "PT24H"
+# The last time a full collection ran. A full collection runs again
+# after `full-interval`.
+last-full-run = 2026-09-28T03:00:00Z
+full-interval = "PT720H"
+
+# Send an event for each push and pull to this endpoint.
+[[registry.notifications.endpoints]]
+name = 'audit'
+url = 'https://audit.internal.example.com/registry'
+timeout = "PT2S"
+threshold = 5
+backoff = "PT1S"
+
+[registry.notifications.endpoints.headers]
+Authorization = ['Bearer ${AUDIT_TOKEN}']
+
+## Static sites, from the artifacts of a pipeline job.
+[pages]
+enabled = true
+# Sites are served at `<group>.<domain>/<project>`.
+domain = 'pages.example.com'
+# Allow a project to use its own domain, with a certificate from ACME.
+custom-domains = true
+access-control = true
+max-size-mb = 1_024
+## The page for a site that does not exist.
+not-found-page = '''
+<!doctype html>
+<title>Not found</title>
+<h1>This site does not exist</h1>
+<p>It may have been removed, or its name may have changed.</p>'''
+
+# Serve the files of a site from memory when they are smaller than this.
+[pages.cache]
+max-file-size = 65_536
+expiry = "PT10M"
+
+[pages.headers]
+Strict-Transport-Security = 'max-age=31536000; includeSubDomains'
+X-Content-Type-Options = 'nosniff'
+Referrer-Policy = 'strict-origin-when-cross-origin'
+
+## Object storage for files that are not in Git: uploads, artifacts, LFS
+## objects, packages, and backups. Each bucket uses `connection`, unless it
+## sets its own.
+[object-storage]
+# Links to download a file from the bucket expire after this long.
+signed-url-lifetime = "PT5M"
+
+[object-storage.connection]
+provider = 's3'
+region = 'eu-west-1'
+# Use the role of the pod, rather than a key in a secret.
+use-iam-profile = true
+# endpoint: 'https://s3.internal.example.com'
+# path-style: true
+
+[object-storage.buckets.uploads]
+bucket = 'quarry-uploads'
+
+[object-storage.buckets.artifacts]
+bucket = 'quarry-artifacts'
+# Artifacts are written once and read rarely.
+storage-class = 'STANDARD_IA'
+
+[object-storage.buckets.lfs]
+bucket = 'quarry-lfs'
+
+[object-storage.buckets.packages]
+bucket = 'quarry-packages'
+
+[object-storage.buckets.dependency-proxy]
+bucket = 'quarry-dependency-proxy'
+# The proxy keeps an image for this long after it was last pulled.
+ttl = "PT2160H"
+
+[object-storage.buckets.backups]
+bucket = 'quarry-backups'
+region = 'eu-central-1'
+storage-class = 'GLACIER_IR'
+
+## Upload large files in parts, so that a failed request sends only one
+## part again.
+[object-storage.multipart]
+part-size = 52_428_800
+concurrency = 4
+
+## Code search.
+[search]
+enabled = true
+engine = 'zoekt'
+
+[search.indexers]
+replicas = 2
+# Index a repository again this long after a push, so that many
+# pushes in a row cause one index.
+debounce = "PT30S"
+# Repositories larger than this are not indexed.
+max-repository-size = 5_368_709_120
+# Files larger than this are not indexed, and nor are binary files.
+max-file-size = 1_048_576
+
+[search.indexers.storage]
+storage-class = 'fast-ssd'
+size = '500Gi'
+
+[search.webservers]
+replicas = 3
+# A search that takes longer than this returns the results found so far.
+timeout = "PT10S"
+max-results = 5_000
+
+# Index only these groups while the index is first built.
+# rollout: {
+# 	groups: ['platform', 'infrastructure']
+# }
+## Advanced search for issues, merge requests, and comments.
+[search.elasticsearch]
+enabled = false
+urls = ['https://search.internal.example.com:9200']
+# Index this many records in one request.
+bulk-size = 1_000
+bulk-timeout = "PT30S"
+shards = 5
+replicas = 1
+
+## Metrics, logs, and traces.
+[observability]
+
+[observability.metrics]
+enabled = true
+# Every service serves its metrics on this port, at `/metrics`.
+port = 9168
+# Only these networks can read the metrics.
+allowed-networks = ['10.0.0.0/8', '127.0.0.0/8']
+# The buckets of request duration histograms, in seconds.
+duration-buckets = [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0, 30.0]
+
+[observability.metrics.annotations]
+'prometheus.io/scrape' = 'true'
+'prometheus.io/port' = '9168'
+'prometheus.io/path' = '/metrics'
+
+## Alert rules for Prometheus. `expr` is PromQL, and an alert fires when it
+## is true for `for`.
+[[observability.alerts]]
+name = 'QuarryWebErrorRate'
+expr = '''
+sum(rate(quarry_http_requests_total{status=~"5.."}[5m]))
+  / sum(rate(quarry_http_requests_total[5m])) > 0.02'''
+for = "PT10M"
+severity = 'critical'
+summary = 'More than 2% of web requests fail.'
+runbook = 'https://runbooks.example.com/quarry/web-errors'
+
+[[observability.alerts]]
+name = 'QuarryJobQueueLatency'
+expr = 'max(quarry_jobs_queue_latency_seconds) > 300'
+for = "PT15M"
+severity = 'warning'
+summary = 'Background jobs wait more than 5 minutes.'
+runbook = 'https://runbooks.example.com/quarry/job-latency'
+
+[[observability.alerts]]
+name = 'QuarryRepositoryStorageFull'
+expr = '''
+(1 - node_filesystem_avail_bytes{mountpoint="/var/opt/quarry/repositories"}
+  / node_filesystem_size_bytes{mountpoint="/var/opt/quarry/repositories"}) > 0.85'''
+for = "PT30M"
+severity = 'warning'
+summary = 'A repository shard is more than 85% full.'
+runbook = 'https://runbooks.example.com/quarry/storage'
+
+[[observability.alerts]]
+name = 'QuarryReplicationLag'
+expr = 'max(quarry_database_replication_lag_seconds) > 60'
+for = "PT5M"
+severity = 'warning'
+summary = 'A database replica is more than a minute behind.'
+runbook = 'https://runbooks.example.com/quarry/replication'
+
+[[observability.alerts]]
+name = 'QuarryCertificateExpiry'
+expr = 'min(quarry_tls_certificate_expiry_seconds) < 14 * 86400'
+for = "PT1H"
+severity = 'critical'
+summary = 'A certificate expires in less than 14 days.'
+runbook = 'https://runbooks.example.com/quarry/certificates'
+
+[observability.logs]
+# `json` for a log collector, or `text` for people.
+format = 'json'
+level = 'info'
+# Requests slower than this are logged with their SQL queries.
+slow-request-threshold = "PT1S"
+# Remove these parameters from logged URLs.
+filter-parameters = ['password', 'token', 'secret', 'private_key', 'otp_attempt']
+
+# Sample 1 in 10 successful requests to `/api/v4/jobs/request`, which
+# runners call every few seconds.
+[observability.logs.sampling]
+'/api/v4/jobs/request' = 0.1
+'/-/readiness' = 0.0
+'/-/liveness' = 0.0
+
+[observability.tracing]
+enabled = false
+# OpenTelemetry, over gRPC.
+endpoint = 'http://otel-collector.observability.svc:4317'
+sample-rate = 0.01
+# Always keep the traces of requests slower than this.
+keep-slower-than = "PT2S"
+
+## Errors are sent to an error tracker.
+[observability.errors]
+enabled = false
+environment = 'production'
+# Group errors from the same release.
+# release: '18.4.2'
+
+[observability.errors.dsn]
+secret = 'quarry-error-tracking'
+key = 'dsn'
+
+## Backups of the database, repositories, and uploads, to the `backups`
+## bucket.
+[backups]
+enabled = true
+# A cron expression, in `global.time-zone`.
+schedule = '0 2 * * *'
+# Remove backups older than this.
+retention = "PT720H"
+# Leave these out of the backup. Artifacts and the registry can be large,
+# and they can be made again.
+skip = ['artifacts', 'registry', 'ci-cache']
+# Split a backup into files of this size.
+part-size = 1_073_741_824
+# A backup that takes longer than this is stopped, and an alert fires.
+timeout = "PT6H"
+
+# Restore the latest backup to a test database this often, and check it.
+[backups.verification]
+enabled = true
+interval = "PT168H"
+last-verified = 2026-10-04T02:41:17Z
+
+# The key that encrypts backups. Without it, a backup cannot be restored,
+# so keep a copy outside this cluster.
+[backups.encryption-key]
+secret = 'quarry-backup-key'
+key = 'key'
+
+## Maintenance windows. During a window, people can read but not write, and
+## the web interface shows `message`.
+[maintenance]
+enabled = false
+message = 'Quarry is in maintenance until 06:00 UTC. You can read, but not push or comment.'
+# Allow these networks to write during a window, for the people who do
+# the maintenance.
+allowed-networks = ['10.20.0.0/16']
+
+[[maintenance.windows]]
+start = 2026-11-14T04:00:00Z
+end = 2026-11-14T06:00:00Z
+reason = 'Upgrade of the database to PostgreSQL 18'
+
+[[maintenance.windows]]
+start = 2026-12-05T05:00:00Z
+end = 2026-12-05T05:30:00Z
+reason = 'Rotation of the ingress certificates'
+
+## Limits for the whole instance. A group or a project can set lower limits,
+## but not higher ones.
+[limits]
+projects-per-user = 100_000
+groups-depth = 20
+# The members of one group, including its subgroups.
+members-per-group = 50_000
+
+[limits.issues]
+# The size of the description of an issue or a merge request.
+description-size = 1_048_576
+# Comments on one issue.
+notes = 5_000
+
+[limits.webhooks]
+per-project = 100
+# A webhook that fails this many times in a row is turned off.
+max-failures = 40
+timeout = "PT10S"
+# Wait this long before a webhook that failed is called again.
+backoff = "PT1M"
+
+[limits.imports]
+max-size-mb = 5_120
+timeout = "PT3H"
+# Imports from these hosts only.
+allowed-hosts = ['github.com', 'gitlab.com', 'bitbucket.org']
+
+[limits.api]
+# The most items that one page of a list returns.
+max-page-size = 100
+# Results past this offset need keyset pagination.
+max-offset = 50_000
+
+[limits.uploads]
+max-size = 104_857_600
+# Images larger than this are not resized.
+max-image-pixels = 25_000_000
+
+## Features that can be turned on or off without a new release. A feature
+## that is on for a fraction of people is on for the same people each time,
+## by their account.
+[features]
+merge-trains = true
+repository-size-check-on-push = true
+# 'web-ide-v3': {
+# 	enabled: false
+# 	rollout: 0.0
+# }
+
+[features.ai-review]
+enabled = false
+# The share of merge requests that get a review.
+rollout = 0.0
+
+[features.new-diff-view]
+enabled = true
+rollout = 0.25
+# These groups always get the new view, for feedback.
+groups = ['platform', 'design']
+
+[features.pipeline-graph-v2]
+enabled = true
+rollout = 1.0
+
+## Where the pods of each service run.
+[scheduling]
+tolerations = [
+	{ key = 'dedicated', operator = 'Equal', value = 'quarry', effect = 'NoSchedule' },
+	{ key = 'node.kubernetes.io/not-ready', operator = 'Exists', effect = 'NoExecute', toleration-seconds = 300 },
+]
+priority-class = 'quarry-high'
+
+## Spread the pods of a service over zones, so that a zone that fails
+## takes at most one replica.
+[scheduling.topology-spread]
+enabled = true
+key = 'topology.kubernetes.io/zone'
+max-skew = 1
+when-unsatisfiable = 'ScheduleAnyway'
+
+[scheduling.node-selector]
+'quarry.example.com/pool' = 'general'
+
+## Disruption budgets limit how many pods of a service a node upgrade can
+## stop at once.
+[scheduling.disruption-budgets]
+# jobs: {
+# 	max-unavailable: '25%'
+# }
+
+[scheduling.disruption-budgets.web]
+max-unavailable = 1
+
+[scheduling.disruption-budgets.ssh]
+max-unavailable = 1
+
+[scheduling.disruption-budgets.registry]
+min-available = 2
+
+## Scale the web and job pods with their load.
+[scheduling.autoscaling]
+
+[scheduling.autoscaling.web]
+enabled = true
+min-replicas = 4
+max-replicas = 20
+target-cpu = 0.7
+# Wait this long after a scale-up before scaling down again.
+scale-down-delay = "PT5M"
+
+[scheduling.autoscaling.jobs]
+enabled = true
+min-replicas = 2
+max-replicas = 12
+# Scale on the number of jobs that wait, per pod.
+target-queue-length = 50
+scale-down-delay = "PT10M"
+
+## Network policies limit which pods can connect to which.
+[network-policy]
+enabled = true
+# Pods in these namespaces can reach the web pods directly, without the
+# ingress.
+allowed-namespaces = ['monitoring', 'quarry-ci']
+
+[[network-policy.egress]]
+# The database and Redis.
+to = ['10.30.0.0/16']
+ports = [5432, 6379, 26379]
+
+[[network-policy.egress]]
+# Object storage, SMTP, and webhooks to the internet.
+to = ['0.0.0.0/0']
+except = ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16']
+ports = [443, 587]
+
+[[network-policy.egress]]
+# DNS.
+to = ['kube-system']
+ports = [53]
+protocols = ['UDP', 'TCP']
+
+## Settings of the operator that deploys Quarry.
+[operator]
+# Check the state of the cluster against this file this often.
+reconcile-interval = "PT5M"
+## Run these checks before an upgrade, and stop it when one fails.
+preflight = [
+	'database-version',
+	'disk-space',
+	'pending-migrations',
+	'background-migrations-finished',
+]
+
+# Upgrade to a new patch release on its own, in a maintenance window.
+[operator.auto-upgrade]
+enabled = false
+channel = 'stable'
+# Do not upgrade before this date, while a migration is tested.
+hold-until = 2026-11-15T00:00:00Z
+
+# The service account of the operator needs these permissions in each
+# namespace that it manages.
+[operator.service-account]
+create = true
+name = 'quarry-operator'
+
+[operator.service-account.annotations]
+'eks.amazonaws.com/role-arn' = 'arn:aws:iam::123456789012:role/quarry-operator'
+
+[operator.resources.requests]
+cpu = '50m'
+memory = '128Mi'
+
+[operator.resources.limits]
+memory = '512Mi'

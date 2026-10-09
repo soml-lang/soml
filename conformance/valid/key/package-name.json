@@ -1,0 +1,6 @@
+{
+	"7zip-bin": {
+		"type": "string",
+		"value": "^5.0.0"
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"ab": {
+		"type": "int",
+		"value": "1"
+	},
+	"a": {
+		"type": "int",
+		"value": "2"
+	},
+	"a-b": {
+		"type": "int",
+		"value": "3"
+	}
+}

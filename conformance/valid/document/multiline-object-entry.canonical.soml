@@ -1,0 +1,5 @@
+name: 'x'
+pool: {
+	max: 16
+	min: 2
+}

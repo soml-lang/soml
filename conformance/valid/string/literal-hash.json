@@ -1,0 +1,6 @@
+{
+	"a": {
+		"type": "string",
+		"value": "# not a comment"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"document": "a: 1\n",
+	"path": [
+		"x",
+		"y",
+		"z"
+	],
+	"value": {
+		"type": "int",
+		"value": "1"
+	},
+	"expected": "a: 1\nx: {\n\ty: {\n\t\tz: 1\n\t}\n}\n"
+}

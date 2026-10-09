@@ -1,0 +1,6 @@
+{
+	"description": {
+		"type": "string",
+		"value": "The API gateway terminates TLS.\nIt routes requests to internal services.\nIt has no external dependencies."
+	}
+}
