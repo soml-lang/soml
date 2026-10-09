@@ -1,0 +1,12 @@
+{
+	"document": "point: {x: 1}\n",
+	"path": [
+		"point",
+		"y"
+	],
+	"value": {
+		"type": "int",
+		"value": "2"
+	},
+	"expected": "point: {x: 1, y: 2}\n"
+}

@@ -1,0 +1,12 @@
+{
+	"document": "deps: {}\n",
+	"path": [
+		"deps",
+		"a"
+	],
+	"value": {
+		"type": "string",
+		"value": "1.0"
+	},
+	"expected": "deps: {\n\ta: '1.0'\n}\n"
+}

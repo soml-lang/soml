@@ -1,0 +1,16 @@
+{
+	"healthcheck": {
+		"path": {
+			"type": "string",
+			"value": "/health"
+		},
+		"interval": {
+			"type": "int",
+			"value": "10"
+		},
+		"grace": {
+			"type": "float",
+			"value": "1.5"
+		}
+	}
+}

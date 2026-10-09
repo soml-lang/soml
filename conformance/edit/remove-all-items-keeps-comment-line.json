@@ -1,0 +1,8 @@
+{
+	"document": "a: [\n\t# Keep\n\t1\n]\n",
+	"path": [
+		"a",
+		0
+	],
+	"expected": "a: [\n\t# Keep\n]\n"
+}

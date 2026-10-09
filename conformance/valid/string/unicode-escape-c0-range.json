@@ -1,0 +1,6 @@
+{
+	"a": {
+		"type": "string",
+		"value": "\u0001\b\u000b\f\u000e\u001f"
+	}
+}

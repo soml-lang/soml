@@ -1,0 +1,22 @@
+{
+	"labels": [
+		{
+			"type": "string",
+			"value": "prod"
+		},
+		{
+			"type": "string",
+			"value": "eu-west"
+		}
+	],
+	"point": {
+		"x": {
+			"type": "int",
+			"value": "1"
+		},
+		"y": {
+			"type": "int",
+			"value": "2"
+		}
+	}
+}

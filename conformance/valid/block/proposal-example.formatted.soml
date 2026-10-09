@@ -1,0 +1,6 @@
+description:
+	'''
+	The API gateway terminates TLS.
+	It routes requests to internal services.
+	It has no external dependencies.
+	'''

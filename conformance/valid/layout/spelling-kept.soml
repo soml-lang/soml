@@ -1,0 +1,1 @@
+{mode: 0o644, mask: 0xFF, big: 1_000_000, wait: 90m, name: 'x', path: "a\tb", db: {host: 'h'}}

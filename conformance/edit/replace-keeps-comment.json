@@ -1,0 +1,11 @@
+{
+	"document": "port: 8080 # The load balancer expects it.\n",
+	"path": [
+		"port"
+	],
+	"value": {
+		"type": "int",
+		"value": "9090"
+	},
+	"expected": "port: 9090 # The load balancer expects it.\n"
+}

@@ -1,0 +1,10 @@
+{
+	"a": {
+		"type": "string",
+		"value": "x\n  y"
+	},
+	"b": {
+		"type": "string",
+		"value": "z\tw"
+	}
+}

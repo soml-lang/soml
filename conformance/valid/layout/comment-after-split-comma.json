@@ -1,0 +1,14 @@
+{
+	"a": {
+		"type": "int",
+		"value": "1"
+	},
+	"b": {
+		"type": "int",
+		"value": "2"
+	},
+	"c": {
+		"type": "int",
+		"value": "3"
+	}
+}

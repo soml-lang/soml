@@ -1,0 +1,24 @@
+{
+	"document": "a: [1, 2]\n",
+	"path": [
+		"a",
+		2
+	],
+	"value": {
+		"b": {
+			"type": "int",
+			"value": "1"
+		},
+		"c": [
+			{
+				"type": "bool",
+				"value": "true"
+			},
+			{
+				"type": "null",
+				"value": "null"
+			}
+		]
+	},
+	"expected": "a: [1, 2, {b: 1, c: [true, null]}]\n"
+}

@@ -1,0 +1,889 @@
+{
+	"global": {
+		"host": "code.example.com",
+		"port": 443,
+		"https": true,
+		"edition": "ee",
+		"time-zone": "UTC",
+		"image": {
+			"registry": "registry.quarry.example",
+			"pull-policy": "IfNotPresent"
+		},
+		"pod": {
+			"labels": {
+				"app.kubernetes.io/part-of": "quarry",
+				"app.kubernetes.io/managed-by": "quarry-operator",
+				"team": "platform"
+			},
+			"annotations": {
+				"cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
+			}
+		},
+		"revision-history-limit": 10,
+		"ingress": {
+			"enabled": true,
+			"class": "nginx",
+			"annotations": {
+				"nginx.ingress.kubernetes.io/proxy-body-size": "512m",
+				"nginx.ingress.kubernetes.io/proxy-read-timeout": "3600",
+				"nginx.ingress.kubernetes.io/proxy-buffering": "off"
+			},
+			"tls": {
+				"enabled": true,
+				"secret-name": "quarry-wildcard-tls"
+			}
+		},
+		"certificates": {
+			"enabled": false,
+			"issuer": {
+				"email": "ops@example.com",
+				"server": "https://acme-v02.api.letsencrypt.org/directory"
+			},
+			"renew-before": "PT720H"
+		},
+		"license": {
+			"secret": "quarry-license",
+			"key": "license"
+		},
+		"outbound": {
+			"deny-networks": [
+				"10.0.0.0/8",
+				"172.16.0.0/12",
+				"192.168.0.0/16",
+				"169.254.0.0/16",
+				"fd00::/8"
+			],
+			"allow-hosts": ["ci-cache.internal.example.com", "ldap.internal.example.com"],
+			"connect-timeout": "PT5S",
+			"read-timeout": "PT30S"
+		},
+		"session-timeout": "PT168H"
+	},
+	"web": {
+		"enabled": true,
+		"replicas": 4,
+		"workers": 4,
+		"threads": {
+			"min": 4,
+			"max": 4
+		},
+		"request-timeout": "PT1M",
+		"memory-limit": 1288490188,
+		"shutdown": {
+			"grace-period": "PT30S",
+			"blackout": "PT10S"
+		},
+		"resources": {
+			"requests": {
+				"cpu": "1",
+				"memory": "2.5Gi"
+			},
+			"limits": {
+				"memory": "4Gi"
+			}
+		},
+		"error-pages": {
+			"400": "errors/400.html",
+			"404": "errors/404.html",
+			"422": "errors/422.html",
+			"500": "errors/500.html",
+			"502": "errors/502.html",
+			"503": "errors/maintenance.html"
+		},
+		"content-security-policy": {
+			"enabled": true,
+			"report-only": false,
+			"directives": {
+				"default-src": ["'self'"],
+				"script-src": ["'self'", "'strict-dynamic'"],
+				"style-src": ["'self'", "'unsafe-inline'"],
+				"img-src": ["'self'", "data:", "blob:", "https://avatars.example.com"],
+				"connect-src": ["'self'", "wss://code.example.com"],
+				"frame-ancestors": ["'none'"]
+			}
+		},
+		"rate-limits": {
+			"enabled": true,
+			"/users/sign_in": {
+				"requests": 10,
+				"period": "PT1M"
+			},
+			"/users/password": {
+				"requests": 5,
+				"period": "PT1M"
+			},
+			"/api/v4/*": {
+				"requests": 2000,
+				"period": "PT1M",
+				"authenticated-requests": 7200
+			},
+			"/api/v4/projects/*/repository/files/*": {
+				"requests": 500,
+				"period": "PT1M"
+			},
+			"/-/graphql": {
+				"requests": 600,
+				"period": "PT1M"
+			}
+		},
+		"graphql": {
+			"max-complexity": 250,
+			"max-depth": 15,
+			"timeout": "PT30S"
+		},
+		"session": {
+			"cookie-name": "_quarry_session",
+			"secure": true,
+			"same-site": "lax",
+			"max-age": "PT720H"
+		}
+	},
+	"ssh": {
+		"enabled": true,
+		"replicas": 2,
+		"port": 22,
+		"listen-port": 2222,
+		"host-keys-secret": "quarry-ssh-host-keys",
+		"ciphers": [
+			"chacha20-poly1305@openssh.com",
+			"aes256-gcm@openssh.com",
+			"aes128-gcm@openssh.com",
+			"aes256-ctr"
+		],
+		"key-exchange": [
+			"sntrup761x25519-sha512@openssh.com",
+			"curve25519-sha256",
+			"curve25519-sha256@libssh.org"
+		],
+		"macs": ["hmac-sha2-256-etm@openssh.com", "hmac-sha2-512-etm@openssh.com"],
+		"banner": "This system is for the use of authorized users only. Activity on it is\nlogged, and may be reviewed by the security team.",
+		"idle-timeout": "PT15M",
+		"login-grace-time": "PT1M",
+		"max-sessions": 10,
+		"proxy-protocol": false,
+		"resources": {
+			"requests": {
+				"cpu": "100m",
+				"memory": "64Mi"
+			}
+		}
+	},
+	"repositories": {
+		"shards": [
+			{
+				"name": "default",
+				"weight": 100,
+				"replicas": 3,
+				"storage-class": "fast-ssd",
+				"size": "2Ti"
+			},
+			{
+				"name": "archive",
+				"weight": 0,
+				"replicas": 2,
+				"storage-class": "standard",
+				"size": "8Ti"
+			}
+		],
+		"housekeeping": {
+			"enabled": true,
+			"full-repack-after-pushes": 200,
+			"prune-grace-period": "PT336H",
+			"window": {
+				"start": "01:00",
+				"duration": "PT4H"
+			}
+		},
+		"limits": {
+			"max-file-size": 104857600,
+			"max-repository-size": 10737418240,
+			"max-diff-files": 1000,
+			"max-diff-lines": 50000
+		},
+		"timeouts": {
+			"default": "PT55S",
+			"fast": "PT10S",
+			"medium": "PT30S",
+			"clone": "PT3H"
+		},
+		"directory-mode": 1528,
+		"file-mode": 416,
+		"verification": {
+			"enabled": true,
+			"interval": "PT168H",
+			"not-before": "2026-11-01T02:00:00Z"
+		}
+	},
+	"database": {
+		"host": "postgres-primary.internal.example.com",
+		"port": 5432,
+		"name": "quarry_production",
+		"user": "quarry",
+		"password": {
+			"secret": "quarry-postgres",
+			"key": "password"
+		},
+		"replicas": {
+			"hosts": [
+				"postgres-replica-1.internal.example.com",
+				"postgres-replica-2.internal.example.com"
+			],
+			"max-replication-lag": "PT1M",
+			"check-interval": "PT5S"
+		},
+		"pool": {
+			"size": 20,
+			"idle-timeout": "PT5M",
+			"checkout-timeout": "PT10S"
+		},
+		"statement-timeout": "PT15S",
+		"lock-timeout": "PT5S",
+		"ssl": {
+			"mode": "verify-full",
+			"root-certificate": "/etc/quarry/postgres/ca.crt"
+		},
+		"setup": "SET application_name = 'quarry';\nSET idle_in_transaction_session_timeout = '60s';\nSET statement_timeout = '15s';",
+		"migrations": {
+			"statement-timeout": "PT1H",
+			"run-post-deployment": false
+		},
+		"retention": {
+			"audit-events": "PT8760H",
+			"web-hook-logs": "PT168H",
+			"ci-job-logs": "PT2160H"
+		}
+	},
+	"redis": {
+		"default": {
+			"host": "redis.internal.example.com",
+			"port": 6379,
+			"password": {
+				"secret": "quarry-redis",
+				"key": "password"
+			},
+			"db": 0,
+			"ssl": false,
+			"connect-timeout": "PT1S",
+			"read-timeout": "PT1S",
+			"write-timeout": "PT1S"
+		},
+		"instances": {
+			"cache": {
+				"host": "redis-cache.internal.example.com",
+				"db": 0
+			},
+			"sessions": {
+				"sentinels": [
+					{"host": "redis-sentinel-1.internal.example.com", "port": 26379},
+					{"host": "redis-sentinel-2.internal.example.com", "port": 26379},
+					{"host": "redis-sentinel-3.internal.example.com", "port": 26379}
+				],
+				"master-name": "quarry-sessions"
+			},
+			"rate-limiting": {
+				"host": "redis-cache.internal.example.com",
+				"db": 2
+			}
+		},
+		"cache-ttl": "PT8H"
+	},
+	"jobs": {
+		"groups": [
+			{
+				"name": "default",
+				"replicas": 4,
+				"concurrency": 20,
+				"queues": ["default", "mailers", "cronjobs", "pipeline_processing"]
+			},
+			{
+				"name": "git",
+				"replicas": 2,
+				"concurrency": 10,
+				"queues": ["post_receive", "repository_update", "repository_import"],
+				"memory-limit": 4294967296
+			},
+			{
+				"name": "search",
+				"replicas": 1,
+				"concurrency": 5,
+				"queues": ["search_indexing"]
+			},
+			{
+				"name": "low-priority",
+				"replicas": 1,
+				"concurrency": 5,
+				"queues": ["housekeeping", "reports", "export"]
+			}
+		],
+		"retry": {
+			"attempts": 25,
+			"initial-backoff": "PT15S",
+			"max-backoff": "PT6H",
+			"multiplier": 2.0,
+			"jitter": 0.15
+		},
+		"timeout": "PT1H",
+		"cron": {
+			"expire-build-artifacts": {
+				"schedule": "*/7 * * * *",
+				"enabled": true
+			},
+			"remove-expired-members": {
+				"schedule": "10 0 * * *",
+				"enabled": true
+			},
+			"prune-old-events": {
+				"schedule": "0 */6 * * *",
+				"enabled": true
+			},
+			"repository-check": {
+				"schedule": "20 * * * *",
+				"enabled": true
+			},
+			"update-usage-statistics": {
+				"schedule": "0 3 * * 0",
+				"enabled": false
+			},
+			"stuck-pipelines": {
+				"schedule": "0 * * * *",
+				"enabled": true
+			}
+		},
+		"shutdown-timeout": "PT25S"
+	},
+	"mail": {
+		"enabled": true,
+		"from": {
+			"address": "quarry@example.com",
+			"name": "Quarry"
+		},
+		"reply-to": "noreply@example.com",
+		"subject-prefix": "[Quarry]",
+		"smtp": {
+			"host": "smtp.example.com",
+			"port": 587,
+			"user": "quarry@example.com",
+			"password": {
+				"secret": "quarry-smtp",
+				"key": "password"
+			},
+			"encryption": "starttls",
+			"authentication": "login",
+			"open-timeout": "PT30S",
+			"read-timeout": "PT1M"
+		},
+		"footer": "You are getting this email because of your notification settings on\n{{ host }}. To change them, go to {{ settings }}.",
+		"incoming": {
+			"enabled": false,
+			"address": "incoming+%{key}@example.com",
+			"imap": {
+				"host": "imap.example.com",
+				"port": 993,
+				"ssl": true,
+				"mailbox": "inbox",
+				"poll-interval": "PT1M"
+			}
+		}
+	},
+	"authentication": {
+		"sign-up": {
+			"enabled": false,
+			"require-approval": true,
+			"allowed-domains": ["example.com", "contractors.example.com"],
+			"confirm-email": true
+		},
+		"password": {
+			"min-length": 12,
+			"check-breached": true,
+			"max-attempts": 10,
+			"lockout-duration": "PT10M",
+			"reset-token-lifetime": "PT2H"
+		},
+		"two-factor": {
+			"policy": "required-for-admins",
+			"grace-period": "PT48H",
+			"methods": ["totp", "webauthn"],
+			"totp-issuer": "Quarry"
+		},
+		"tokens": {
+			"default-lifetime": "PT720H",
+			"max-lifetime": "PT8760H",
+			"legacy-expiry": "2027-03-31T00:00:00Z"
+		},
+		"providers": [
+			{
+				"id": "oidc-corporate",
+				"type": "openid-connect",
+				"label": "Corporate sign-in",
+				"issuer": "https://login.example.com",
+				"client-id": "quarry",
+				"client-secret": {
+					"secret": "quarry-oidc",
+					"key": "client-secret"
+				},
+				"scopes": ["openid", "profile", "email", "groups"],
+				"auto-create": true,
+				"admin-groups": ["quarry-admins"]
+			},
+			{
+				"id": "github",
+				"type": "oauth2",
+				"label": "GitHub",
+				"client-id": "Iv1.4b9c2e7f0a1d3c5b",
+				"client-secret": {
+					"secret": "quarry-github-oauth",
+					"key": "client-secret"
+				},
+				"auto-create": false
+			}
+		],
+		"ldap": {
+			"enabled": false,
+			"servers": [
+				{
+					"id": "main",
+					"label": "Directory",
+					"host": "ldap.internal.example.com",
+					"port": 636,
+					"encryption": "simple_tls",
+					"bind-dn": "CN=Quarry,OU=Services,DC=example,DC=com",
+					"password": {
+						"secret": "quarry-ldap",
+						"key": "password"
+					},
+					"base": "OU=People,DC=example,DC=com",
+					"user-filter": "(memberOf=CN=Developers,OU=Groups,DC=example,DC=com)",
+					"uid": "sAMAccountName",
+					"attributes": {
+						"username": ["uid", "sAMAccountName"],
+						"email": ["mail", "email", "userPrincipalName"],
+						"name": "cn"
+					},
+					"timeout": "PT10S",
+					"sync-interval": "PT1H"
+				}
+			]
+		}
+	},
+	"ci": {
+		"enabled": true,
+		"max-job-timeout": "PT3H",
+		"default-job-timeout": "PT1H",
+		"artifacts": {
+			"default-expiry": "PT720H",
+			"max-size-mb": 1024,
+			"keep-latest": true
+		},
+		"logs": {
+			"max-size-mb": 100,
+			"masked-patterns": [
+				"(?i)aws_secret_access_key\\s*=\\s*\\S+",
+				"ghp_[A-Za-z0-9]{36}",
+				"qrt-[A-Za-z0-9_-]{20,}"
+			]
+		},
+		"runners": {
+			"enabled": true,
+			"replicas": 2,
+			"concurrent": 10,
+			"check-interval": "PT3S",
+			"executor": "kubernetes",
+			"kubernetes": {
+				"namespace": "quarry-ci",
+				"default-image": "alpine:3.22",
+				"pull-policy": ["always", "if-not-present"],
+				"cpu-request": "500m",
+				"cpu-limit": "2",
+				"memory-request": "1Gi",
+				"memory-limit": "4Gi",
+				"poll-timeout": "PT10M",
+				"privileged": false,
+				"node-selector": {
+					"quarry.example.com/pool": "ci"
+				},
+				"tolerations": [
+					{"key": "dedicated", "operator": "Equal", "value": "ci", "effect": "NoSchedule"}
+				]
+			},
+			"cache": {
+				"type": "s3",
+				"bucket": "quarry-ci-cache",
+				"shared": true,
+				"max-age": "PT336H"
+			},
+			"pre-job-script": "#!/bin/sh\nset -eu\n# Trust the certificate authority of the company, for clones and downloads.\nif [ -f /etc/quarry-ci/ca.crt ]; then\n\tcp /etc/quarry-ci/ca.crt /usr/local/share/ca-certificates/company.crt\n\tupdate-ca-certificates >/dev/null 2>&1 || true\nfi\ngit config --global http.lowSpeedLimit 1000\ngit config --global http.lowSpeedTime 60"
+		},
+		"variables": {
+			"DOCKER_DRIVER": "overlay2",
+			"GIT_DEPTH": "20",
+			"GIT_STRATEGY": "fetch",
+			"FF_USE_FASTZIP": "true",
+			"TRANSFER_METER_FREQUENCY": "5s"
+		},
+		"pending-timeout": "PT24H"
+	},
+	"registry": {
+		"enabled": true,
+		"host": "registry.code.example.com",
+		"replicas": 3,
+		"storage": {
+			"type": "s3",
+			"bucket": "quarry-registry",
+			"region": "eu-west-1",
+			"chunk-size": 10485760
+		},
+		"garbage-collection": {
+			"enabled": true,
+			"review-delay": "PT24H",
+			"last-full-run": "2026-09-28T03:00:00Z",
+			"full-interval": "PT720H"
+		},
+		"token-lifetime": "PT15M",
+		"notifications": {
+			"endpoints": [
+				{
+					"name": "audit",
+					"url": "https://audit.internal.example.com/registry",
+					"timeout": "PT2S",
+					"threshold": 5,
+					"backoff": "PT1S",
+					"headers": {
+						"Authorization": ["Bearer ${AUDIT_TOKEN}"]
+					}
+				}
+			]
+		}
+	},
+	"pages": {
+		"enabled": true,
+		"domain": "pages.example.com",
+		"custom-domains": true,
+		"access-control": true,
+		"max-size-mb": 1024,
+		"cache": {
+			"max-file-size": 65536,
+			"expiry": "PT10M"
+		},
+		"headers": {
+			"Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+			"X-Content-Type-Options": "nosniff",
+			"Referrer-Policy": "strict-origin-when-cross-origin"
+		},
+		"not-found-page": "<!doctype html>\n<title>Not found</title>\n<h1>This site does not exist</h1>\n<p>It may have been removed, or its name may have changed.</p>"
+	},
+	"object-storage": {
+		"connection": {
+			"provider": "s3",
+			"region": "eu-west-1",
+			"use-iam-profile": true
+		},
+		"buckets": {
+			"uploads": {
+				"bucket": "quarry-uploads"
+			},
+			"artifacts": {
+				"bucket": "quarry-artifacts",
+				"storage-class": "STANDARD_IA"
+			},
+			"lfs": {
+				"bucket": "quarry-lfs"
+			},
+			"packages": {
+				"bucket": "quarry-packages"
+			},
+			"dependency-proxy": {
+				"bucket": "quarry-dependency-proxy",
+				"ttl": "PT2160H"
+			},
+			"backups": {
+				"bucket": "quarry-backups",
+				"region": "eu-central-1",
+				"storage-class": "GLACIER_IR"
+			}
+		},
+		"multipart": {
+			"part-size": 52428800,
+			"concurrency": 4
+		},
+		"signed-url-lifetime": "PT5M"
+	},
+	"search": {
+		"enabled": true,
+		"engine": "zoekt",
+		"indexers": {
+			"replicas": 2,
+			"debounce": "PT30S",
+			"max-repository-size": 5368709120,
+			"max-file-size": 1048576,
+			"storage": {
+				"storage-class": "fast-ssd",
+				"size": "500Gi"
+			}
+		},
+		"webservers": {
+			"replicas": 3,
+			"timeout": "PT10S",
+			"max-results": 5000
+		},
+		"elasticsearch": {
+			"enabled": false,
+			"urls": ["https://search.internal.example.com:9200"],
+			"bulk-size": 1000,
+			"bulk-timeout": "PT30S",
+			"shards": 5,
+			"replicas": 1
+		}
+	},
+	"observability": {
+		"metrics": {
+			"enabled": true,
+			"port": 9168,
+			"allowed-networks": ["10.0.0.0/8", "127.0.0.0/8"],
+			"annotations": {
+				"prometheus.io/scrape": "true",
+				"prometheus.io/port": "9168",
+				"prometheus.io/path": "/metrics"
+			},
+			"duration-buckets": [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0, 30.0]
+		},
+		"alerts": [
+			{
+				"name": "QuarryWebErrorRate",
+				"expr": "sum(rate(quarry_http_requests_total{status=~\"5..\"}[5m]))\n  / sum(rate(quarry_http_requests_total[5m])) > 0.02",
+				"for": "PT10M",
+				"severity": "critical",
+				"summary": "More than 2% of web requests fail.",
+				"runbook": "https://runbooks.example.com/quarry/web-errors"
+			},
+			{
+				"name": "QuarryJobQueueLatency",
+				"expr": "max(quarry_jobs_queue_latency_seconds) > 300",
+				"for": "PT15M",
+				"severity": "warning",
+				"summary": "Background jobs wait more than 5 minutes.",
+				"runbook": "https://runbooks.example.com/quarry/job-latency"
+			},
+			{
+				"name": "QuarryRepositoryStorageFull",
+				"expr": "(1 - node_filesystem_avail_bytes{mountpoint=\"/var/opt/quarry/repositories\"}\n  / node_filesystem_size_bytes{mountpoint=\"/var/opt/quarry/repositories\"}) > 0.85",
+				"for": "PT30M",
+				"severity": "warning",
+				"summary": "A repository shard is more than 85% full.",
+				"runbook": "https://runbooks.example.com/quarry/storage"
+			},
+			{
+				"name": "QuarryReplicationLag",
+				"expr": "max(quarry_database_replication_lag_seconds) > 60",
+				"for": "PT5M",
+				"severity": "warning",
+				"summary": "A database replica is more than a minute behind.",
+				"runbook": "https://runbooks.example.com/quarry/replication"
+			},
+			{
+				"name": "QuarryCertificateExpiry",
+				"expr": "min(quarry_tls_certificate_expiry_seconds) < 14 * 86400",
+				"for": "PT1H",
+				"severity": "critical",
+				"summary": "A certificate expires in less than 14 days.",
+				"runbook": "https://runbooks.example.com/quarry/certificates"
+			}
+		],
+		"logs": {
+			"format": "json",
+			"level": "info",
+			"slow-request-threshold": "PT1S",
+			"filter-parameters": ["password", "token", "secret", "private_key", "otp_attempt"],
+			"sampling": {
+				"/api/v4/jobs/request": 0.1,
+				"/-/readiness": 0.0,
+				"/-/liveness": 0.0
+			}
+		},
+		"tracing": {
+			"enabled": false,
+			"endpoint": "http://otel-collector.observability.svc:4317",
+			"sample-rate": 0.01,
+			"keep-slower-than": "PT2S"
+		},
+		"errors": {
+			"enabled": false,
+			"dsn": {
+				"secret": "quarry-error-tracking",
+				"key": "dsn"
+			},
+			"environment": "production"
+		}
+	},
+	"backups": {
+		"enabled": true,
+		"schedule": "0 2 * * *",
+		"retention": "PT720H",
+		"skip": ["artifacts", "registry", "ci-cache"],
+		"verification": {
+			"enabled": true,
+			"interval": "PT168H",
+			"last-verified": "2026-10-04T02:41:17Z"
+		},
+		"part-size": 1073741824,
+		"encryption-key": {
+			"secret": "quarry-backup-key",
+			"key": "key"
+		},
+		"timeout": "PT6H"
+	},
+	"maintenance": {
+		"enabled": false,
+		"message": "Quarry is in maintenance until 06:00 UTC. You can read, but not push or comment.",
+		"windows": [
+			{
+				"start": "2026-11-14T04:00:00Z",
+				"end": "2026-11-14T06:00:00Z",
+				"reason": "Upgrade of the database to PostgreSQL 18"
+			},
+			{
+				"start": "2026-12-05T05:00:00Z",
+				"end": "2026-12-05T05:30:00Z",
+				"reason": "Rotation of the ingress certificates"
+			}
+		],
+		"allowed-networks": ["10.20.0.0/16"]
+	},
+	"limits": {
+		"projects-per-user": 100000,
+		"groups-depth": 20,
+		"members-per-group": 50000,
+		"issues": {
+			"description-size": 1048576,
+			"notes": 5000
+		},
+		"webhooks": {
+			"per-project": 100,
+			"max-failures": 40,
+			"timeout": "PT10S",
+			"backoff": "PT1M"
+		},
+		"imports": {
+			"max-size-mb": 5120,
+			"timeout": "PT3H",
+			"allowed-hosts": ["github.com", "gitlab.com", "bitbucket.org"]
+		},
+		"api": {
+			"max-page-size": 100,
+			"max-offset": 50000
+		},
+		"uploads": {
+			"max-size": 104857600,
+			"max-image-pixels": 25000000
+		}
+	},
+	"features": {
+		"merge-trains": true,
+		"ai-review": {
+			"enabled": false,
+			"rollout": 0.0
+		},
+		"new-diff-view": {
+			"enabled": true,
+			"rollout": 0.25,
+			"groups": ["platform", "design"]
+		},
+		"repository-size-check-on-push": true,
+		"pipeline-graph-v2": {
+			"enabled": true,
+			"rollout": 1.0
+		}
+	},
+	"scheduling": {
+		"topology-spread": {
+			"enabled": true,
+			"key": "topology.kubernetes.io/zone",
+			"max-skew": 1,
+			"when-unsatisfiable": "ScheduleAnyway"
+		},
+		"node-selector": {
+			"quarry.example.com/pool": "general"
+		},
+		"tolerations": [
+			{"key": "dedicated", "operator": "Equal", "value": "quarry", "effect": "NoSchedule"},
+			{"key": "node.kubernetes.io/not-ready", "operator": "Exists", "effect": "NoExecute", "toleration-seconds": 300}
+		],
+		"priority-class": "quarry-high",
+		"disruption-budgets": {
+			"web": {
+				"max-unavailable": 1
+			},
+			"ssh": {
+				"max-unavailable": 1
+			},
+			"registry": {
+				"min-available": 2
+			}
+		},
+		"autoscaling": {
+			"web": {
+				"enabled": true,
+				"min-replicas": 4,
+				"max-replicas": 20,
+				"target-cpu": 0.7,
+				"scale-down-delay": "PT5M"
+			},
+			"jobs": {
+				"enabled": true,
+				"min-replicas": 2,
+				"max-replicas": 12,
+				"target-queue-length": 50,
+				"scale-down-delay": "PT10M"
+			}
+		}
+	},
+	"network-policy": {
+		"enabled": true,
+		"allowed-namespaces": ["monitoring", "quarry-ci"],
+		"egress": [
+			{
+				"to": ["10.30.0.0/16"],
+				"ports": [5432, 6379, 26379]
+			},
+			{
+				"to": ["0.0.0.0/0"],
+				"except": ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"],
+				"ports": [443, 587]
+			},
+			{
+				"to": ["kube-system"],
+				"ports": [53],
+				"protocols": ["UDP", "TCP"]
+			}
+		]
+	},
+	"operator": {
+		"reconcile-interval": "PT5M",
+		"auto-upgrade": {
+			"enabled": false,
+			"channel": "stable",
+			"hold-until": "2026-11-15T00:00:00Z"
+		},
+		"preflight": [
+			"database-version",
+			"disk-space",
+			"pending-migrations",
+			"background-migrations-finished"
+		],
+		"service-account": {
+			"create": true,
+			"name": "quarry-operator",
+			"annotations": {
+				"eks.amazonaws.com/role-arn": "arn:aws:iam::123456789012:role/quarry-operator"
+			}
+		},
+		"resources": {
+			"requests": {
+				"cpu": "50m",
+				"memory": "128Mi"
+			},
+			"limits": {
+				"memory": "512Mi"
+			}
+		}
+	}
+}

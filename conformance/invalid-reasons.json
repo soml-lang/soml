@@ -1,0 +1,2457 @@
+{
+	"array/colon": {
+		"reason": "Invalid number “1:”",
+		"line": 1,
+		"column": 5
+	},
+	"array/comma-first": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"array/comma-on-own-line": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"array/double-comma-across-lines": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"array/double-comma-after-line-break": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 2,
+		"column": 1
+	},
+	"array/double-comma": {
+		"reason": "Expected a value, but found “,”",
+		"line": 1,
+		"column": 7
+	},
+	"array/extra-close": {
+		"reason": "Expected a line break before the next entry, but found “]”",
+		"line": 1,
+		"column": 7
+	},
+	"array/followed-by-value": {
+		"reason": "Expected a line break before the next entry, but found “2”",
+		"line": 1,
+		"column": 8
+	},
+	"array/leading-comma-on-own-line": {
+		"reason": "Expected a value, but found “,”",
+		"line": 2,
+		"column": 2
+	},
+	"array/leading-comma": {
+		"reason": "Expected a value, but found “,”",
+		"line": 1,
+		"column": 5
+	},
+	"array/line-break-inside-block-comment": {
+		"reason": "Expected “,”, a line break, or “]” after an array item, but found “2”. A line break inside a block comment does not separate items",
+		"line": 2,
+		"column": 4
+	},
+	"array/line-comment-before-comma": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 2,
+		"column": 1
+	},
+	"array/mismatched-close": {
+		"reason": "Expected “,”, a line break, or “]” after an array item, but found “}”",
+		"line": 1,
+		"column": 6
+	},
+	"array/missing-comma-on-one-line-in-multiline": {
+		"reason": "Expected “,”, a line break, or “]” after an array item, but found “2”",
+		"line": 2,
+		"column": 4
+	},
+	"array/missing-comma": {
+		"reason": "Expected “,”, a line break, or “]” after an array item, but found “2”",
+		"line": 1,
+		"column": 7
+	},
+	"array/only-comma-on-own-line": {
+		"reason": "Expected a value, but found “,”",
+		"line": 2,
+		"column": 2
+	},
+	"array/only-comma": {
+		"reason": "Expected a value, but found “,”",
+		"line": 1,
+		"column": 5
+	},
+	"array/second-comma-on-next-line": {
+		"reason": "Expected a value, but found “,”",
+		"line": 3,
+		"column": 2
+	},
+	"array/trailing-comma-on-next-line": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 2,
+		"column": 1
+	},
+	"array/trailing-comma-on-own-line": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"array/two-arrays": {
+		"reason": "Expected a line break before the next entry, but found “[”",
+		"line": 1,
+		"column": 8
+	},
+	"array/unclosed-at-end": {
+		"reason": "Unterminated array: expected “]”",
+		"line": 1,
+		"column": 4
+	},
+	"array/unclosed": {
+		"reason": "Unterminated array: expected “]”",
+		"line": 1,
+		"column": 4
+	},
+	"block/as-key-in-braces": {
+		"reason": "A block string cannot be a key",
+		"line": 1,
+		"column": 2
+	},
+	"block/closing-followed-by-string": {
+		"reason": "Expected a line break before the next entry, but found “'”",
+		"line": 3,
+		"column": 6
+	},
+	"block/closing-followed-by-text": {
+		"reason": "Expected a line break before the next entry, but found “y”",
+		"line": 3,
+		"column": 6
+	},
+	"block/closing-longer-run-only": {
+		"reason": "Unterminated block string",
+		"line": 1,
+		"column": 4
+	},
+	"block/comment-on-opening-line": {
+		"reason": "A block string's opening delimiter must be followed directly by a line break, and its content starts on the next line",
+		"line": 1,
+		"column": 7
+	},
+	"block/content-contains-delimiter-line": {
+		"reason": "A block string cannot be a key",
+		"line": 3,
+		"column": 2
+	},
+	"block/content-on-opening-line": {
+		"reason": "A block string's opening delimiter must be followed directly by a line break, and its content starts on the next line",
+		"line": 1,
+		"column": 7
+	},
+	"block/different-indentation-characters": {
+		"reason": "This line does not start with the indentation of its block string's closing delimiter. Every line except a blank one must start with exactly the same spaces and tabs",
+		"line": 2,
+		"column": 1
+	},
+	"block/escaped-bad-escape": {
+		"reason": "Unknown escape “\\q”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 2,
+		"column": 2
+	},
+	"block/escaped-line-continuation": {
+		"reason": "A backslash must be followed by an escape character. Use \\\\ for a literal backslash, or a '...' string",
+		"line": 2,
+		"column": 3
+	},
+	"block/escaped-opening-trailing-space": {
+		"reason": "A block string's opening delimiter must be followed directly by a line break, and its content starts on the next line",
+		"line": 1,
+		"column": 7
+	},
+	"block/escaped-unicode-carriage-return": {
+		"reason": "A carriage return (U+000D) cannot be represented, so \\u{d} is not allowed",
+		"line": 2,
+		"column": 2
+	},
+	"block/escaped-unicode-escape-across-lines": {
+		"reason": "A Unicode escape is written \\u{…} with one to six lowercase hexadecimal digits",
+		"line": 2,
+		"column": 2
+	},
+	"block/escaped-unicode-surrogate": {
+		"reason": "\\u{d800} is a surrogate, which is not a Unicode scalar value",
+		"line": 2,
+		"column": 2
+	},
+	"block/mismatched-quotes": {
+		"reason": "Unterminated block string",
+		"line": 1,
+		"column": 4
+	},
+	"block/opening-trailing-form-feed": {
+		"reason": "A raw control character (U+000C) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{c} inside \"...\"",
+		"line": 1,
+		"column": 7
+	},
+	"block/opening-trailing-no-break-space": {
+		"reason": "A block string's opening delimiter must be followed directly by a line break, and its content starts on the next line",
+		"line": 1,
+		"column": 7
+	},
+	"block/opening-trailing-tab": {
+		"reason": "A block string's opening delimiter must be followed directly by a line break, and its content starts on the next line",
+		"line": 1,
+		"column": 7
+	},
+	"block/opening-trailing-whitespace": {
+		"reason": "A block string's opening delimiter must be followed directly by a line break, and its content starts on the next line",
+		"line": 1,
+		"column": 7
+	},
+	"block/two-quotes-is-empty-then-text": {
+		"reason": "Unexpected “x” after a value",
+		"line": 1,
+		"column": 6
+	},
+	"block/under-indented": {
+		"reason": "This line does not start with the indentation of its block string's closing delimiter. Every line except a blank one must start with exactly the same spaces and tabs",
+		"line": 2,
+		"column": 1
+	},
+	"block/unterminated-after-opening-line": {
+		"reason": "Unterminated block string",
+		"line": 1,
+		"column": 4
+	},
+	"block/unterminated-at-opening": {
+		"reason": "Unterminated block string",
+		"line": 1,
+		"column": 4
+	},
+	"block/unterminated": {
+		"reason": "Unterminated block string",
+		"line": 1,
+		"column": 4
+	},
+	"comment/between-quoted-key-and-colon": {
+		"reason": "A comment is not allowed between a key and its “:”",
+		"line": 1,
+		"column": 4
+	},
+	"comment/block-containing-open-at-start": {
+		"reason": "Block comments cannot be nested, and their body may not contain “/*”",
+		"line": 1,
+		"column": 3
+	},
+	"comment/block-containing-open": {
+		"reason": "Block comments cannot be nested, and their body may not contain “/*”",
+		"line": 2,
+		"column": 6
+	},
+	"comment/double-slash": {
+		"reason": "Expected a key, but found “/”. A comment starts with “#”",
+		"line": 1,
+		"column": 1
+	},
+	"comment/inside-duration": {
+		"reason": "Expected a line break before the next entry, but found “3”",
+		"line": 1,
+		"column": 13
+	},
+	"comment/inside-instant": {
+		"reason": "Invalid instant “2026-09-19T14:00”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"comment/inside-key": {
+		"reason": "Expected “:” after the key, but found “/”",
+		"line": 1,
+		"column": 2
+	},
+	"comment/inside-number": {
+		"reason": "Expected a line break before the next entry, but found “0”",
+		"line": 1,
+		"column": 12
+	},
+	"comment/nested-block": {
+		"reason": "Block comments cannot be nested, and their body may not contain “/*”",
+		"line": 2,
+		"column": 6
+	},
+	"comment/single-slash": {
+		"reason": "Expected a line break before the next entry, but found “/”",
+		"line": 1,
+		"column": 6
+	},
+	"comment/stray-block-close": {
+		"reason": "Expected a key, but found “*”",
+		"line": 2,
+		"column": 1
+	},
+	"comment/unterminated-block-at-start": {
+		"reason": "Unterminated block comment",
+		"line": 1,
+		"column": 1
+	},
+	"comment/unterminated-block": {
+		"reason": "Unterminated block comment",
+		"line": 2,
+		"column": 1
+	},
+	"control/after-block-opening-delimiter": {
+		"reason": "A raw control character (U+0001) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1} inside \"...\"",
+		"line": 1,
+		"column": 7
+	},
+	"control/backspace-in-escaped-string": {
+		"reason": "A raw control character (U+0008) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{8} inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"control/delete-between-tokens": {
+		"reason": "A raw control character (U+007F) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{7f} inside \"...\"",
+		"line": 1,
+		"column": 3
+	},
+	"control/delete-in-bare-key": {
+		"reason": "A raw control character (U+007F) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{7f} inside \"...\"",
+		"line": 1,
+		"column": 2
+	},
+	"control/delete-in-line-comment": {
+		"reason": "A raw control character (U+007F) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{7f} inside \"...\"",
+		"line": 1,
+		"column": 8
+	},
+	"control/delete-in-literal-block-string": {
+		"reason": "A raw control character (U+007F) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{7f} inside \"...\"",
+		"line": 2,
+		"column": 3
+	},
+	"control/delete-in-literal-string": {
+		"reason": "A raw control character (U+007F) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{7f} inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"control/escape-at-start": {
+		"reason": "A raw control character (U+001B) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1b} inside \"...\"",
+		"line": 1,
+		"column": 1
+	},
+	"control/escape-character-in-literal-string": {
+		"reason": "A raw control character (U+001B) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1b} inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"control/form-feed-in-string": {
+		"reason": "A raw control character (U+000C) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{c} inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"control/in-block-comment": {
+		"reason": "A raw control character (U+007F) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{7f} inside \"...\"",
+		"line": 1,
+		"column": 4
+	},
+	"control/in-block-string-blank-line": {
+		"reason": "A raw control character (U+000B) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{b} inside \"...\"",
+		"line": 3,
+		"column": 1
+	},
+	"control/in-escaped-block-string": {
+		"reason": "A raw control character (U+0001) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1} inside \"...\"",
+		"line": 2,
+		"column": 3
+	},
+	"control/in-line-comment": {
+		"reason": "A raw control character (U+0001) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1} inside \"...\"",
+		"line": 1,
+		"column": 8
+	},
+	"control/in-literal-block-string": {
+		"reason": "A raw control character (U+0001) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1} inside \"...\"",
+		"line": 2,
+		"column": 3
+	},
+	"control/in-quoted-key": {
+		"reason": "A raw control character (U+0001) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1} inside \"...\"",
+		"line": 1,
+		"column": 3
+	},
+	"control/nul-at-end": {
+		"reason": "A raw control character (U+0000) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{0} inside \"...\"",
+		"line": 2,
+		"column": 1
+	},
+	"control/nul-in-block-comment": {
+		"reason": "A raw control character (U+0000) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{0} inside \"...\"",
+		"line": 1,
+		"column": 4
+	},
+	"control/nul-in-escaped-string": {
+		"reason": "A raw control character (U+0000) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{0} inside \"...\"",
+		"line": 1,
+		"column": 6
+	},
+	"control/nul-in-literal-string": {
+		"reason": "A raw control character (U+0000) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{0} inside \"...\"",
+		"line": 1,
+		"column": 6
+	},
+	"control/unit-separator-in-string": {
+		"reason": "A raw control character (U+001F) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1f} inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"control/vertical-tab-in-string": {
+		"reason": "A raw control character (U+000B) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{b} inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"document/array-then-entry": {
+		"reason": "Unexpected “a” after the end of the document",
+		"line": 2,
+		"column": 1
+	},
+	"document/bare-block-string": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-escaped-string": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-float": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-infinity": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-instant": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-int": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-negative-int": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-null": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-string": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/bare-true": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"document/braced-then-trailing-text": {
+		"reason": "Unexpected “x” after the end of the document",
+		"line": 1,
+		"column": 7
+	},
+	"document/control-character": {
+		"reason": "A raw control character (U+0001) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{1} inside \"...\"",
+		"line": 2,
+		"column": 1
+	},
+	"document/empty": {
+		"reason": "A document must contain an object or an array, but this one is empty",
+		"line": 1,
+		"column": 1
+	},
+	"document/entry-missing-value-at-end": {
+		"reason": "Expected a value, but reached the end of the document",
+		"line": 1,
+		"column": 3
+	},
+	"document/entry-missing-value-then-entry": {
+		"reason": "Expected a value, but found the key b",
+		"line": 2,
+		"column": 1
+	},
+	"document/entry-missing-value": {
+		"reason": "Expected a value, but reached the end of the document",
+		"line": 2,
+		"column": 1
+	},
+	"document/entry-then-array": {
+		"reason": "Expected a key, but found “[”",
+		"line": 2,
+		"column": 1
+	},
+	"document/form-feed": {
+		"reason": "A raw control character (U+000C) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{c} inside \"...\"",
+		"line": 2,
+		"column": 1
+	},
+	"document/null-character": {
+		"reason": "A raw control character (U+0000) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{0} inside \"...\"",
+		"line": 1,
+		"column": 1
+	},
+	"document/object-then-entry": {
+		"reason": "Unexpected “b” after the end of the document",
+		"line": 2,
+		"column": 1
+	},
+	"document/only-closing-brace": {
+		"reason": "Expected a key, but found “}”",
+		"line": 1,
+		"column": 1
+	},
+	"document/only-colon": {
+		"reason": "Expected a key, but found “:”",
+		"line": 1,
+		"column": 1
+	},
+	"document/only-comma": {
+		"reason": "Expected a key, but found “,”",
+		"line": 1,
+		"column": 1
+	},
+	"document/only-comments": {
+		"reason": "A document must contain an object or an array, but this one is empty",
+		"line": 3,
+		"column": 1
+	},
+	"document/only-whitespace": {
+		"reason": "A document must contain an object or an array, but this one is empty",
+		"line": 3,
+		"column": 1
+	},
+	"document/slashdash-before-entry": {
+		"reason": "Expected a key, but found “/”",
+		"line": 1,
+		"column": 1
+	},
+	"document/stray-closing-brace": {
+		"reason": "Expected a key, but found “}”",
+		"line": 2,
+		"column": 1
+	},
+	"document/stray-closing-bracket": {
+		"reason": "Expected a key, but found “]”",
+		"line": 2,
+		"column": 1
+	},
+	"document/top-level-comma": {
+		"reason": "Top-level entries are separated by line breaks, not commas. Use braces for a one-line object",
+		"line": 1,
+		"column": 5
+	},
+	"document/top-level-leading-comma": {
+		"reason": "Expected a key, but found “,”",
+		"line": 1,
+		"column": 1
+	},
+	"document/top-level-trailing-comma": {
+		"reason": "Top-level entries are separated by line breaks, not commas. Use braces for a one-line object",
+		"line": 1,
+		"column": 5
+	},
+	"document/two-arrays": {
+		"reason": "Unexpected “[” after the end of the document",
+		"line": 1,
+		"column": 4
+	},
+	"document/two-entries-one-line": {
+		"reason": "Expected a line break before the next entry, but found “b”",
+		"line": 1,
+		"column": 6
+	},
+	"document/two-entries-separated-by-block-comment": {
+		"reason": "Expected a line break before the next entry, but found “b”",
+		"line": 1,
+		"column": 14
+	},
+	"document/two-entries-separated-by-multiline-block-comment-in-braces": {
+		"reason": "Expected “,”, a line break, or “}” after an object member, but found “b”. A line break inside a block comment does not separate items",
+		"line": 2,
+		"column": 4
+	},
+	"document/two-entries-separated-by-multiline-block-comment": {
+		"reason": "Expected a line break before the next entry, but found “b”",
+		"line": 2,
+		"column": 4
+	},
+	"document/two-objects-on-lines": {
+		"reason": "Unexpected “{” after the end of the document",
+		"line": 2,
+		"column": 1
+	},
+	"document/two-objects": {
+		"reason": "Unexpected “{” after the end of the document",
+		"line": 1,
+		"column": 8
+	},
+	"document/unclosed-brace": {
+		"reason": "Unterminated object: expected “}”",
+		"line": 1,
+		"column": 1
+	},
+	"document/unclosed-bracket": {
+		"reason": "Unterminated array: expected “]”",
+		"line": 1,
+		"column": 1
+	},
+	"document/vertical-tab": {
+		"reason": "A raw control character (U+000B) is not allowed anywhere, including in strings and comments. In a string, write it as the escape \\u{b} inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"duplicate/bare": {
+		"reason": "Duplicate key a",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/empty-key": {
+		"reason": "Duplicate key \"\"",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/escaped-and-literal": {
+		"reason": "Duplicate key a",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/in-array-item": {
+		"reason": "Duplicate key a",
+		"line": 1,
+		"column": 9
+	},
+	"duplicate/in-braces": {
+		"reason": "Duplicate key a",
+		"line": 1,
+		"column": 8
+	},
+	"duplicate/in-nested-object": {
+		"reason": "Duplicate key a",
+		"line": 1,
+		"column": 11
+	},
+	"duplicate/numeric-looking": {
+		"reason": "Duplicate key 404",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/object-then-scalar": {
+		"reason": "Duplicate key a",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/proto": {
+		"reason": "Duplicate key __proto__",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/quoted-and-bare": {
+		"reason": "Duplicate key a",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/same-value": {
+		"reason": "Duplicate key a",
+		"line": 2,
+		"column": 1
+	},
+	"duplicate/unicode-escape": {
+		"reason": "Duplicate key a",
+		"line": 2,
+		"column": 1
+	},
+	"duration/above-max": {
+		"reason": "Invalid duration 9223372036854775808ns: it is outside the 64-bit range of nanoseconds, about 292 years either way",
+		"line": 1,
+		"column": 4
+	},
+	"duration/bare-document": {
+		"reason": "A bare value is not a document. A document is an object or an array, so write it as `key: value` or `[value]`",
+		"line": 1,
+		"column": 1
+	},
+	"duration/below-min": {
+		"reason": "Invalid duration -9223372036854775809ns: it is outside the 64-bit range of nanoseconds, about 292 years either way",
+		"line": 1,
+		"column": 4
+	},
+	"duration/day": {
+		"reason": "Invalid duration 1d: there is no day unit, because a day is not a fixed length. Write 24h for a fixed 24 hours",
+		"line": 1,
+		"column": 4
+	},
+	"duration/exponent": {
+		"reason": "Invalid number “1e3s”. A string value must be quoted, as in '1e3s'",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-above-max": {
+		"reason": "Invalid duration 2562047h47m16.854775808s: it is outside the 64-bit range of nanoseconds, about 292 years either way",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-before-last-part": {
+		"reason": "Invalid duration 1.5h30m: only the last part may have a fraction",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-below-nanosecond": {
+		"reason": "Invalid duration 0.5ns: it is not a whole number of nanoseconds",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-exponent": {
+		"reason": "Invalid number “1.5e3s”. A string value must be quoted, as in '1.5e3s'",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-leading-dot": {
+		"reason": "A number cannot begin with “.”; write a digit before it, as in 0.5",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-leading-zero": {
+		"reason": "Invalid duration 01.5s: leading zeros are not allowed",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-negative-zero": {
+		"reason": "Invalid duration -0.0s: “-” is not allowed before zero, because zero has one spelling: 0s",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-too-fine-hours": {
+		"reason": "Invalid duration 0.00000000000025h: it is not a whole number of nanoseconds",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-too-fine-milliseconds": {
+		"reason": "Invalid duration 1.0000005ms: it is not a whole number of nanoseconds",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-too-fine": {
+		"reason": "Invalid duration 1.0000000001s: it is not a whole number of nanoseconds",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-trailing-dot": {
+		"reason": "Invalid duration 1.s: a “.” must be followed by a digit",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-two-dots": {
+		"reason": "Invalid number “1.5.5s”. A value with several dots, such as a version number, must be quoted",
+		"line": 1,
+		"column": 4
+	},
+	"duration/fraction-underscore-after-dot": {
+		"reason": "Invalid duration 1._5s: a “.” must be followed by a digit",
+		"line": 1,
+		"column": 4
+	},
+	"duration/hours-above-max": {
+		"reason": "Invalid duration 2562048h: it is outside the 64-bit range of nanoseconds, about 292 years either way",
+		"line": 1,
+		"column": 4
+	},
+	"duration/huge-part": {
+		"reason": "Invalid duration 1000000000000000000000000000000000000000…: it is outside the 64-bit range of nanoseconds, about 292 years either way",
+		"line": 1,
+		"column": 4
+	},
+	"duration/leading-zero-in-later-part": {
+		"reason": "Invalid duration 1h05m: leading zeros are not allowed",
+		"line": 1,
+		"column": 4
+	},
+	"duration/leading-zero": {
+		"reason": "Invalid duration 05m: leading zeros are not allowed",
+		"line": 1,
+		"column": 4
+	},
+	"duration/micro-sign": {
+		"reason": "The unit for microseconds is written us, as in 1us",
+		"line": 1,
+		"column": 5
+	},
+	"duration/milliseconds-before-seconds": {
+		"reason": "Invalid duration 1ms1s: the units are in the order h, m, s, ms, us, ns, and each appears at most once",
+		"line": 1,
+		"column": 4
+	},
+	"duration/missing-last-unit": {
+		"reason": "Invalid duration 1h30: every number needs a unit: h, m, s, ms, us, or ns",
+		"line": 1,
+		"column": 4
+	},
+	"duration/negative-zero-parts": {
+		"reason": "Invalid duration -0h0m: “-” is not allowed before zero, because zero has one spelling: 0s",
+		"line": 1,
+		"column": 4
+	},
+	"duration/negative-zero": {
+		"reason": "Invalid duration -0s: “-” is not allowed before zero, because zero has one spelling: 0s",
+		"line": 1,
+		"column": 4
+	},
+	"duration/out-of-range-then-bad-unit": {
+		"reason": "Invalid duration 2562048h30x: “x” is not a unit. The units are h, m, s, ms, us, and ns, and a string must be quoted",
+		"line": 1,
+		"column": 4
+	},
+	"duration/plus": {
+		"reason": "Invalid duration 1h+30m: a “+” sign is not allowed",
+		"line": 1,
+		"column": 4
+	},
+	"duration/radix": {
+		"reason": "Invalid hexadecimal digit “s”",
+		"line": 1,
+		"column": 4
+	},
+	"duration/repeated-unit": {
+		"reason": "Invalid duration 1m1m: the units are in the order h, m, s, ms, us, ns, and each appears at most once",
+		"line": 1,
+		"column": 4
+	},
+	"duration/sign-on-part": {
+		"reason": "Invalid duration 1h-30m: only the whole duration takes a sign, as in -1h30m",
+		"line": 1,
+		"column": 4
+	},
+	"duration/space-before-unit": {
+		"reason": "A unit cannot follow a number after a space. Write a duration without the space, as in 1s, and anything else, such as a size, as a string, as in '1 s'",
+		"line": 1,
+		"column": 6
+	},
+	"duration/space-between-parts": {
+		"reason": "Expected a line break before the next entry, but found “3”",
+		"line": 1,
+		"column": 7
+	},
+	"duration/sum-above-max": {
+		"reason": "Invalid duration 2562047h47m16s854ms775us808ns: it is outside the 64-bit range of nanoseconds, about 292 years either way",
+		"line": 1,
+		"column": 4
+	},
+	"duration/trailing-underscore": {
+		"reason": "Invalid duration 1_s: an underscore must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"duration/unit-without-number": {
+		"reason": "Invalid duration 1hm: “hm” is not a unit. The units are h, m, s, ms, us, and ns, and a string must be quoted",
+		"line": 1,
+		"column": 4
+	},
+	"duration/unknown-unit": {
+		"reason": "Invalid duration 10sec: “sec” is not a unit. The units are h, m, s, ms, us, and ns, and a string must be quoted",
+		"line": 1,
+		"column": 4
+	},
+	"duration/unordered": {
+		"reason": "Invalid duration 30m1h: the units are in the order h, m, s, ms, us, ns, and each appears at most once",
+		"line": 1,
+		"column": 4
+	},
+	"duration/uppercase-unit": {
+		"reason": "Invalid duration 1H: the units are lowercase: h",
+		"line": 1,
+		"column": 4
+	},
+	"duration/week": {
+		"reason": "Invalid duration 1w: there is no week unit, because a day is not a fixed length. Write 168h for a fixed 168 hours",
+		"line": 1,
+		"column": 4
+	},
+	"encoding/byte-order-mark-before-value": {
+		"reason": "Expected a value, but found U+FEFF (ZERO WIDTH NO-BREAK SPACE; only space, tab, and line feed are whitespace)",
+		"line": 1,
+		"column": 4
+	},
+	"encoding/byte-order-mark-between-entries": {
+		"reason": "Expected a key, but found U+FEFF (ZERO WIDTH NO-BREAK SPACE; only space, tab, and line feed are whitespace)",
+		"line": 2,
+		"column": 1
+	},
+	"encoding/byte-order-mark-only": {
+		"reason": "A byte order mark (BOM) is not allowed",
+		"line": 1,
+		"column": 1
+	},
+	"encoding/byte-order-mark": {
+		"reason": "A byte order mark (BOM) is not allowed",
+		"line": 1,
+		"column": 1
+	},
+	"encoding/carriage-return-at-end": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 2,
+		"column": 1
+	},
+	"encoding/carriage-return-in-block-comment": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 1,
+		"column": 4
+	},
+	"encoding/carriage-return-in-block-string": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 2,
+		"column": 3
+	},
+	"encoding/carriage-return-in-comment": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 1,
+		"column": 4
+	},
+	"encoding/carriage-return-in-escaped-string": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 1,
+		"column": 6
+	},
+	"encoding/carriage-return-in-literal-string": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 1,
+		"column": 6
+	},
+	"encoding/crlf": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 1,
+		"column": 5
+	},
+	"encoding/encoded-surrogate": {
+		"reason": "Invalid UTF-8 byte 0xED",
+		"line": 1,
+		"column": 5
+	},
+	"encoding/invalid-utf8-byte": {
+		"reason": "Invalid UTF-8 byte 0xFF",
+		"line": 1,
+		"column": 5
+	},
+	"encoding/invalid-utf8-continuation": {
+		"reason": "Invalid UTF-8 byte 0x80",
+		"line": 1,
+		"column": 5
+	},
+	"encoding/lone-carriage-return": {
+		"reason": "A carriage return (U+000D) is not allowed anywhere. Use LF line endings",
+		"line": 1,
+		"column": 5
+	},
+	"encoding/overlong-utf8": {
+		"reason": "Invalid UTF-8 byte 0xC0",
+		"line": 1,
+		"column": 5
+	},
+	"encoding/truncated-utf8-at-end": {
+		"reason": "Incomplete UTF-8 sequence at the end of the input",
+		"line": 1,
+		"column": 7
+	},
+	"encoding/utf16-byte-order-mark": {
+		"reason": "Invalid UTF-8 byte 0xFF",
+		"line": 1,
+		"column": 1
+	},
+	"encoding/utf8-above-max": {
+		"reason": "Invalid UTF-8 byte 0xF4",
+		"line": 1,
+		"column": 5
+	},
+	"instant/april-31": {
+		"reason": "Invalid instant 2026-04-31T00:00:00Z: the day must be 01 to 30 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/basic-format": {
+		"reason": "Invalid number “20260919T140000Z”. A string value must be quoted, as in '20260919T140000Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/date-and-hour-minute": {
+		"reason": "Invalid instant “2026-09-19T14:00”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/date-only": {
+		"reason": "2026-09-19 is a date, not an instant. Write a date as a string, as in '2026-09-19'. An instant needs a time and an offset, as in 2026-09-19T00:00:00Z",
+		"line": 1,
+		"column": 4
+	},
+	"instant/day-00": {
+		"reason": "Invalid instant 2026-01-00T00:00:00Z: the day must be 01 to 31 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/day-32": {
+		"reason": "Invalid instant 2026-01-32T00:00:00Z: the day must be 01 to 31 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/february-29-1900": {
+		"reason": "Invalid instant 1900-02-29T00:00:00Z: the day must be 01 to 28 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/february-29-non-leap": {
+		"reason": "Invalid instant 2026-02-29T00:00:00Z: the day must be 01 to 28 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/february-30": {
+		"reason": "Invalid instant 2026-02-30T00:00:00Z: the day must be 01 to 28 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/five-digit-year": {
+		"reason": "Invalid number “12026-09-19T14:00:00Z”. A string value must be quoted, as in '12026-09-19T14:00:00Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/fraction-comma": {
+		"reason": "An instant needs an offset: Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/fraction-empty": {
+		"reason": "Invalid instant “2026-09-19T14:00:00.Z”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/fraction-ten-digits": {
+		"reason": "Invalid instant 2026-09-19T14:00:00.1234567891Z: a fractional second has at most nine digits",
+		"line": 1,
+		"column": 4
+	},
+	"instant/fraction-underscore": {
+		"reason": "Invalid instant “2026-09-19T14:00:00.1_0Z”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/hour-24": {
+		"reason": "Invalid instant 2026-01-01T24:00:00Z: the hour must be 00 to 23",
+		"line": 1,
+		"column": 4
+	},
+	"instant/june-31": {
+		"reason": "Invalid instant 2026-06-31T00:00:00Z: the day must be 01 to 30 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/lowercase-t": {
+		"reason": "The date and time separator in an instant is an uppercase “T”",
+		"line": 1,
+		"column": 4
+	},
+	"instant/lowercase-z": {
+		"reason": "The UTC offset in an instant is an uppercase “Z”",
+		"line": 1,
+		"column": 4
+	},
+	"instant/minute-60": {
+		"reason": "Invalid instant 2026-01-01T00:60:00Z: the minute must be 00 to 59",
+		"line": 1,
+		"column": 4
+	},
+	"instant/missing-seconds": {
+		"reason": "Invalid instant “2026-09-19T14:00Z”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/month-00": {
+		"reason": "Invalid instant 2026-00-01T00:00:00Z: the month must be 01 to 12",
+		"line": 1,
+		"column": 4
+	},
+	"instant/month-13": {
+		"reason": "Invalid instant 2026-13-01T00:00:00Z: the month must be 01 to 12",
+		"line": 1,
+		"column": 4
+	},
+	"instant/negative-year": {
+		"reason": "Invalid number “-2026-09-19T14:00:00Z”. A string value must be quoted, as in '-2026-09-19T14:00:00Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/no-offset-with-fraction": {
+		"reason": "An instant needs an offset: Z or ±HH:MM. A date and time without an offset is a local time, which is not an instant, so write it as a string, as in '2026-09-19T14:00:00.5', or add the offset it was meant in",
+		"line": 1,
+		"column": 4
+	},
+	"instant/no-offset": {
+		"reason": "An instant needs an offset: Z or ±HH:MM. A date and time without an offset is a local time, which is not an instant, so write it as a string, as in '2026-09-19T14:00:00', or add the offset it was meant in",
+		"line": 1,
+		"column": 4
+	},
+	"instant/november-31": {
+		"reason": "Invalid instant 2026-11-31T00:00:00Z: the day must be 01 to 30 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-hour-24": {
+		"reason": "Invalid instant 2026-01-01T00:00:00+24:00: the offset hour must be 00 to 23",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-hours-only": {
+		"reason": "Invalid instant “2026-09-19T14:00:00+07”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-minute-60": {
+		"reason": "Invalid instant 2026-01-01T00:00:00+01:60: the offset minute must be 00 to 59",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-name": {
+		"reason": "An instant needs an offset: Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-seconds": {
+		"reason": "Invalid instant “2026-01-01T00:00:00+01:00:00”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-unknown": {
+		"reason": "Invalid instant 2026-09-19T14:00:00-00:00: -00:00 means “offset unknown” in RFC 3339, which is not representable; use Z or +00:00",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-without-colon": {
+		"reason": "An instant's offset is written with a colon, as in +07:00",
+		"line": 1,
+		"column": 4
+	},
+	"instant/offset-z-and-numeric": {
+		"reason": "Invalid instant “2026-01-01T00:00:00Z+01:00”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/ordinal-date": {
+		"reason": "Invalid number “2026-262T14:00:00Z”. A string value must be quoted, as in '2026-262T14:00:00Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/plus-year": {
+		"reason": "A “+” sign is not allowed. A number without a sign is positive",
+		"line": 1,
+		"column": 4
+	},
+	"instant/quoted-is-a-string-but-bare-date-is-not": {
+		"reason": "2026-09-19 is a date, not an instant. Write a date as a string, as in '2026-09-19'. An instant needs a time and an offset, as in 2026-09-19T00:00:00Z",
+		"line": 2,
+		"column": 4
+	},
+	"instant/second-60": {
+		"reason": "Invalid instant 2026-12-31T23:59:60Z: the second must be 00 to 59, and a leap second is not representable",
+		"line": 1,
+		"column": 4
+	},
+	"instant/september-31": {
+		"reason": "Invalid instant 2026-09-31T00:00:00Z: the day must be 01 to 30 in that month",
+		"line": 1,
+		"column": 4
+	},
+	"instant/single-digit-hour": {
+		"reason": "Invalid instant “2026-09-19T4:00:00Z”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/single-digit-month": {
+		"reason": "Invalid number “2026-9-19T14:00:00Z”. A string value must be quoted, as in '2026-9-19T14:00:00Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/space-separator": {
+		"reason": "The date and time separator in an instant is an uppercase “T”, not a space, as in 2026-09-19T14:00:00Z",
+		"line": 1,
+		"column": 4
+	},
+	"instant/trailing-text": {
+		"reason": "Invalid instant “2026-09-19T14:00:00Zx”. An instant is written as 2026-09-19T14:00:00Z, with an optional fraction of up to nine digits and an offset of Z or ±HH:MM",
+		"line": 1,
+		"column": 4
+	},
+	"instant/two-digit-year": {
+		"reason": "Invalid number “26-09-19T14:00:00Z”. A string value must be quoted, as in '26-09-19T14:00:00Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/underscore-in-date": {
+		"reason": "Invalid number “2026_09_19T14:00:00Z”. A string value must be quoted, as in '2026_09_19T14:00:00Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/utc-after-year-9999-with-fraction": {
+		"reason": "Invalid instant 9999-12-31T23:59:59.999999999-00:01: in UTC it falls outside the years 0001 to 9999",
+		"line": 1,
+		"column": 4
+	},
+	"instant/utc-after-year-9999": {
+		"reason": "Invalid instant 9999-12-31T23:59:59-01:00: in UTC it falls outside the years 0001 to 9999",
+		"line": 1,
+		"column": 4
+	},
+	"instant/utc-before-year-0001": {
+		"reason": "Invalid instant 0001-01-01T00:00:00+01:00: in UTC it falls outside the years 0001 to 9999",
+		"line": 1,
+		"column": 4
+	},
+	"instant/week-date": {
+		"reason": "Invalid number “2026-W38-6T14:00:00Z”. A string value must be quoted, as in '2026-W38-6T14:00:00Z'",
+		"line": 1,
+		"column": 4
+	},
+	"instant/year-0000": {
+		"reason": "Invalid instant 0000-01-01T00:00:00Z: the year must be 0001 to 9999",
+		"line": 1,
+		"column": 4
+	},
+	"key/at-sign": {
+		"reason": "Expected a key, but found “@”. A key that contains characters other than letters, digits, “_”, and “-” must be quoted, as in '@a'",
+		"line": 1,
+		"column": 1
+	},
+	"key/bad-escape-in-key": {
+		"reason": "Unknown escape “\\q”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 2
+	},
+	"key/block-string": {
+		"reason": "A block string cannot be a key",
+		"line": 1,
+		"column": 1
+	},
+	"key/brace-in-key": {
+		"reason": "Expected “:” after the key, but found “{”",
+		"line": 1,
+		"column": 2
+	},
+	"key/colon-in-bare-key": {
+		"reason": "A key that contains “:” must be quoted, as in 'a:b'",
+		"line": 1,
+		"column": 1
+	},
+	"key/comment-before-colon": {
+		"reason": "A comment is not allowed between a key and its “:”",
+		"line": 1,
+		"column": 2
+	},
+	"key/dollar": {
+		"reason": "Expected a key, but found “$”. A key that contains characters other than letters, digits, “_”, and “-” must be quoted, as in '$a'",
+		"line": 1,
+		"column": 1
+	},
+	"key/dot-after-quoted": {
+		"reason": "A key cannot contain “.” unless it is quoted. Quote the whole key, or use braces to nest, as in a: {b: …}",
+		"line": 1,
+		"column": 4
+	},
+	"key/dot-before-quoted": {
+		"reason": "A key cannot contain “.” unless it is quoted. Quote the whole key, or use braces to nest, as in a: {b: …}",
+		"line": 1,
+		"column": 2
+	},
+	"key/dot-duration-like": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in '1.5s', or use braces to nest, as in 1: {5s: …}",
+		"line": 1,
+		"column": 2
+	},
+	"key/dot-float-like": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in '3.14', or use braces to nest, as in 3: {14: …}",
+		"line": 1,
+		"column": 2
+	},
+	"key/dot-host-name": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in 'example.com', or use braces to nest, as in example: {com: …}",
+		"line": 1,
+		"column": 8
+	},
+	"key/dot-in-array-item": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in 'a.b', or use braces to nest, as in a: {b: …}",
+		"line": 1,
+		"column": 4
+	},
+	"key/dot-in-braces": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in 'a.b', or use braces to nest, as in a: {b: …}",
+		"line": 1,
+		"column": 3
+	},
+	"key/dot-in-nested-object": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in 'a.b', or use braces to nest, as in a: {b: …}",
+		"line": 1,
+		"column": 6
+	},
+	"key/dot-on-later-line": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in 'b.c', or use braces to nest, as in b: {c: …}",
+		"line": 2,
+		"column": 2
+	},
+	"key/dot": {
+		"reason": "A bare key cannot contain “.”. Quote it, as in 'a.b', or use braces to nest, as in a: {b: …}",
+		"line": 1,
+		"column": 2
+	},
+	"key/equals-instead-of-colon": {
+		"reason": "Expected “:” after the key, but found “=”",
+		"line": 1,
+		"column": 3
+	},
+	"key/escaped-block-string": {
+		"reason": "A block string cannot be a key",
+		"line": 1,
+		"column": 1
+	},
+	"key/in-array": {
+		"reason": "Expected a value, but found the key a",
+		"line": 1,
+		"column": 2
+	},
+	"key/leading-dot": {
+		"reason": "Expected a key, but found “.”. A key that contains characters other than letters, digits, “_”, and “-” must be quoted, as in '.a'",
+		"line": 1,
+		"column": 1
+	},
+	"key/missing-colon-at-end": {
+		"reason": "Expected “:” after the key",
+		"line": 1,
+		"column": 2
+	},
+	"key/missing-colon": {
+		"reason": "Expected “:” after the key, but found “1”",
+		"line": 1,
+		"column": 3
+	},
+	"key/multiline-quoted": {
+		"reason": "Unterminated string. A '...' string must end on the line it starts on; use a block string (''') for multiple lines",
+		"line": 1,
+		"column": 1
+	},
+	"key/non-ascii-first-letter": {
+		"reason": "Expected a key, but found “é”. A key that contains characters other than letters, digits, “_”, and “-” must be quoted, as in 'é'",
+		"line": 1,
+		"column": 1
+	},
+	"key/non-ascii-letter": {
+		"reason": "Expected “:” after the key, but found “é”. A key that contains characters other than letters, digits, “_”, and “-” must be quoted",
+		"line": 1,
+		"column": 4
+	},
+	"key/object-with-only-value": {
+		"reason": "Expected “:” after the key, but found “}”",
+		"line": 1,
+		"column": 3
+	},
+	"key/object-without-colon": {
+		"reason": "Expected “:” after the key, but found “}”",
+		"line": 1,
+		"column": 3
+	},
+	"key/plus": {
+		"reason": "Expected “:” after the key, but found “+”. A key that contains characters other than letters, digits, “_”, and “-” must be quoted",
+		"line": 1,
+		"column": 2
+	},
+	"key/quoted-then-bare-without-dot": {
+		"reason": "Expected “:” after the key, but found “b”",
+		"line": 1,
+		"column": 4
+	},
+	"key/space-before-colon": {
+		"reason": "Whitespace is not allowed between a key and its “:”",
+		"line": 1,
+		"column": 2
+	},
+	"key/space-before-dot": {
+		"reason": "Expected “:” after the key, but found “.”",
+		"line": 1,
+		"column": 3
+	},
+	"key/space-in-bare-key": {
+		"reason": "A bare key cannot contain spaces. Quote it, as in 'the name'",
+		"line": 1,
+		"column": 1
+	},
+	"key/tab-before-colon": {
+		"reason": "Whitespace is not allowed between a key and its “:”",
+		"line": 1,
+		"column": 2
+	},
+	"key/trailing-dot": {
+		"reason": "A key cannot contain “.” unless it is quoted. Quote the whole key, or use braces to nest, as in a: {b: …}",
+		"line": 1,
+		"column": 2
+	},
+	"key/unterminated-quoted": {
+		"reason": "Unterminated string. A '...' string must end on the line it starts on; use a block string (''') for multiple lines",
+		"line": 1,
+		"column": 1
+	},
+	"keyword/fals": {
+		"reason": "Unexpected “fals”. A string value must be quoted, as in 'fals'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/false-capitalized": {
+		"reason": "“False” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/false-uppercase": {
+		"reason": "“FALSE” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/false_": {
+		"reason": "Unexpected “false_”. A string value must be quoted, as in 'false_'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/n": {
+		"reason": "Unexpected “n”. A string value must be quoted, as in 'n'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/nil": {
+		"reason": "“nil” is not a value. Null is written null, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/no": {
+		"reason": "“no” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/none-capitalized": {
+		"reason": "“None” is not a value. Null is written null, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/none": {
+		"reason": "“none” is not a value. Null is written null, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/nul-word": {
+		"reason": "Unexpected “nul”. A string value must be quoted, as in 'nul'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/null-capitalized": {
+		"reason": "“Null” is not a value. Null is written null, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/null-uppercase": {
+		"reason": "“NULL” is not a value. Null is written null, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/null-x": {
+		"reason": "Unexpected “null-x”. A string value must be quoted, as in 'null-x'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/nullable": {
+		"reason": "Unexpected “nullable”. A string value must be quoted, as in 'nullable'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/off": {
+		"reason": "“off” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/on": {
+		"reason": "“on” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/tru": {
+		"reason": "Unexpected “tru”. A string value must be quoted, as in 'tru'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/true-capitalized": {
+		"reason": "“True” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/true-colon": {
+		"reason": "Unexpected “:” after a value",
+		"line": 1,
+		"column": 8
+	},
+	"keyword/true-dot": {
+		"reason": "Unexpected “.” after a value",
+		"line": 1,
+		"column": 8
+	},
+	"keyword/true-uppercase": {
+		"reason": "“TRUE” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/true1": {
+		"reason": "Unexpected “true1”. A string value must be quoted, as in 'true1'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/truex": {
+		"reason": "Unexpected “truex”. A string value must be quoted, as in 'truex'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/undefined": {
+		"reason": "“undefined” is not a value. Null is written null, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/y": {
+		"reason": "Unexpected “y”. A string value must be quoted, as in 'y'",
+		"line": 1,
+		"column": 4
+	},
+	"keyword/yes": {
+		"reason": "“yes” is not a value. Booleans are written true and false, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"nesting/arrays-101": {
+		"reason": "The document is nested more than 100 levels deep",
+		"line": 1,
+		"column": 101
+	},
+	"nesting/brace-less-101": {
+		"reason": "The document is nested more than 100 levels deep",
+		"line": 1,
+		"column": 103
+	},
+	"nesting/mixed-101": {
+		"reason": "The document is nested more than 100 levels deep",
+		"line": 1,
+		"column": 251
+	},
+	"nesting/objects-101": {
+		"reason": "The document is nested more than 100 levels deep",
+		"line": 1,
+		"column": 401
+	},
+	"number/binary-above-max": {
+		"reason": "The integer 0b10000000000000000000000000000000000000… is outside the 64-bit range (-9223372036854775808 to 9223372036854775807)",
+		"line": 1,
+		"column": 4
+	},
+	"number/binary-digit-2": {
+		"reason": "Invalid binary digit “2”",
+		"line": 1,
+		"column": 4
+	},
+	"number/binary-without-digits": {
+		"reason": "Expected binary digits after “0b”",
+		"line": 1,
+		"column": 4
+	},
+	"number/comma-thousands": {
+		"reason": "Top-level entries are separated by line breaks, not commas. Use braces for a one-line object",
+		"line": 1,
+		"column": 5
+	},
+	"number/consecutive-dots": {
+		"reason": "A decimal point must be followed by a digit",
+		"line": 1,
+		"column": 4
+	},
+	"number/double-exponent": {
+		"reason": "Invalid number “1e5e5”. A string value must be quoted, as in '1e5e5'",
+		"line": 1,
+		"column": 4
+	},
+	"number/double-minus": {
+		"reason": "Expected a digit or “infinity” after “-”",
+		"line": 1,
+		"column": 4
+	},
+	"number/double-underscore": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-double-zero": {
+		"reason": "Leading zeros are not allowed in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-leading-zero-underscore": {
+		"reason": "Leading zeros are not allowed in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-leading-zero-with-fraction": {
+		"reason": "Leading zeros are not allowed in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-leading-zero": {
+		"reason": "Leading zeros are not allowed in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-minus-without-digits": {
+		"reason": "Expected digits after the exponent marker “e”",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-negative-leading-zero": {
+		"reason": "Leading zeros are not allowed in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-negative-zero": {
+		"reason": "“e-0” is not allowed, because an exponent of zero has one spelling: e0",
+		"line": 1,
+		"column": 4
+	},
+	"number/exponent-without-digits": {
+		"reason": "Expected digits after the exponent marker “e”",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-huge-exponent": {
+		"reason": "1e99999999999999999999 is too large to be a finite float. Use infinity if you mean it",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-leading-zero-exponent": {
+		"reason": "Leading zeros are not allowed in a decimal number",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-leading-zero": {
+		"reason": "Leading zeros are not allowed in a decimal number",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-leading-zeros": {
+		"reason": "Leading zeros are not allowed in a decimal number",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-negative-overflow": {
+		"reason": "-1e999 is too large to be a finite float. Use -infinity if you mean it",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-negative-underflow": {
+		"reason": "-1e-400 is too small to be told apart from zero. Write 0.0 if you mean zero",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-overflow-mantissa": {
+		"reason": "1.8e308 is too large to be a finite float. Use infinity if you mean it",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-overflow-rounding-boundary": {
+		"reason": "1.7976931348623159e308 is too large to be a finite float. Use infinity if you mean it",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-overflow": {
+		"reason": "1e309 is too large to be a finite float. Use infinity if you mean it",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-underflow-rounding-boundary": {
+		"reason": "2.4703282292062327e-324 is too small to be told apart from zero. Write 0.0 if you mean zero",
+		"line": 1,
+		"column": 4
+	},
+	"number/float-underflow": {
+		"reason": "1e-400 is too small to be told apart from zero. Write 0.0 if you mean zero",
+		"line": 1,
+		"column": 4
+	},
+	"number/fraction-then-letter": {
+		"reason": "Invalid number “1.5x”. A string value must be quoted, as in '1.5x'",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-above-max": {
+		"reason": "The integer 0x8000000000000000 is outside the 64-bit range (-9223372036854775808 to 9223372036854775807)",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-digit-g": {
+		"reason": "Invalid hexadecimal digit “G”",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-double-underscore": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-float": {
+		"reason": "Invalid hexadecimal digit “.”",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-max-unsigned": {
+		"reason": "The integer 0xFFFFFFFFFFFFFFFF is outside the 64-bit range (-9223372036854775808 to 9223372036854775807)",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-trailing-underscore": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-underscore-after-prefix": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/hex-without-digits": {
+		"reason": "Expected hexadecimal digits after “0x”",
+		"line": 1,
+		"column": 4
+	},
+	"number/inf": {
+		"reason": "“inf” is not a value. Infinity is written infinity, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"number/infinity-capitalized": {
+		"reason": "“Infinity” is not a value. Infinity is written infinity, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"number/infinity-suffix": {
+		"reason": "Unexpected “infinityx”. A string value must be quoted, as in 'infinityx'",
+		"line": 1,
+		"column": 4
+	},
+	"number/infinity-uppercase": {
+		"reason": "“INFINITY” is not a value. Infinity is written infinity, in lowercase",
+		"line": 1,
+		"column": 4
+	},
+	"number/int-above-max": {
+		"reason": "The integer 9223372036854775808 is outside the 64-bit range (-9223372036854775808 to 9223372036854775807)",
+		"line": 1,
+		"column": 4
+	},
+	"number/int-below-min": {
+		"reason": "The integer -9223372036854775809 is outside the 64-bit range (-9223372036854775808 to 9223372036854775807)",
+		"line": 1,
+		"column": 4
+	},
+	"number/int-far-above-max": {
+		"reason": "The integer 99999999999999999999999 is outside the 64-bit range (-9223372036854775808 to 9223372036854775807)",
+		"line": 1,
+		"column": 4
+	},
+	"number/leading-dot": {
+		"reason": "A number cannot begin with “.”; write a digit before it, as in 0.5",
+		"line": 1,
+		"column": 4
+	},
+	"number/leading-underscore": {
+		"reason": "Unexpected “_1”. A string value must be quoted, as in '_1'",
+		"line": 1,
+		"column": 4
+	},
+	"number/leading-zero-underscore": {
+		"reason": "Leading zeros are not allowed in a decimal number",
+		"line": 1,
+		"column": 4
+	},
+	"number/leading-zero": {
+		"reason": "Leading zeros are not allowed in a decimal number. Write an octal number, such as a file mode, as 0o1, and an identifier, such as a ZIP code, as a string: '01'",
+		"line": 1,
+		"column": 4
+	},
+	"number/leading-zeros": {
+		"reason": "Leading zeros are not allowed in a decimal number. Write an octal number, such as a file mode, as 0o0, and an identifier, such as a ZIP code, as a string: '00'",
+		"line": 1,
+		"column": 4
+	},
+	"number/lowercase-hex-digits": {
+		"reason": "Hexadecimal digits are uppercase: 0xFF",
+		"line": 1,
+		"column": 4
+	},
+	"number/minus-between-digits": {
+		"reason": "Invalid number “1-2”",
+		"line": 1,
+		"column": 4
+	},
+	"number/minus-only": {
+		"reason": "Expected a digit or “infinity” after “-”",
+		"line": 1,
+		"column": 4
+	},
+	"number/minus-space-number": {
+		"reason": "Expected a digit or “infinity” after “-”",
+		"line": 1,
+		"column": 4
+	},
+	"number/mixed-case-hex-digits": {
+		"reason": "Hexadecimal digits are uppercase: 0xFF",
+		"line": 1,
+		"column": 4
+	},
+	"number/nan-capitalized": {
+		"reason": "NaN is not representable. Use null for a missing value",
+		"line": 1,
+		"column": 4
+	},
+	"number/nan": {
+		"reason": "NaN is not representable. Use null for a missing value",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-binary": {
+		"reason": "A binary integer cannot have a sign, because it states a bit pattern rather than a quantity",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-hex": {
+		"reason": "A hexadecimal integer cannot have a sign, because it states a bit pattern rather than a quantity",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-inf": {
+		"reason": "“-inf” is not a value. Negative infinity is written -infinity",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-infinity-capitalized": {
+		"reason": "“-Infinity” is not a value. Negative infinity is written -infinity",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-infinity-dot": {
+		"reason": "Unexpected “.” after a value",
+		"line": 1,
+		"column": 13
+	},
+	"number/negative-leading-dot": {
+		"reason": "A number cannot begin with “.”; write a digit before it, as in -0.5",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-leading-zero": {
+		"reason": "Leading zeros are not allowed in a decimal number",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-nan": {
+		"reason": "NaN is not representable. Use null for a missing value",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-octal": {
+		"reason": "An octal integer cannot have a sign, because it states a bit pattern rather than a quantity",
+		"line": 1,
+		"column": 4
+	},
+	"number/negative-zero-int": {
+		"reason": "“-0” is not allowed, because zero has one spelling: 0",
+		"line": 1,
+		"column": 4
+	},
+	"number/number-then-dot": {
+		"reason": "A decimal point must be followed by a digit",
+		"line": 1,
+		"column": 4
+	},
+	"number/octal-above-max": {
+		"reason": "The integer 0o1000000000000000000000 is outside the 64-bit range (-9223372036854775808 to 9223372036854775807)",
+		"line": 1,
+		"column": 4
+	},
+	"number/octal-digit-8": {
+		"reason": "Invalid octal digit “8”",
+		"line": 1,
+		"column": 4
+	},
+	"number/octal-digit-9": {
+		"reason": "Invalid octal digit “9”",
+		"line": 1,
+		"column": 4
+	},
+	"number/octal-float": {
+		"reason": "Invalid octal digit “.”",
+		"line": 1,
+		"column": 4
+	},
+	"number/octal-without-digits": {
+		"reason": "Expected octal digits after “0o”",
+		"line": 1,
+		"column": 4
+	},
+	"number/old-octal": {
+		"reason": "Leading zeros are not allowed in a decimal number. Write an octal number, such as a file mode, as 0o644, and an identifier, such as a ZIP code, as a string: '0644'",
+		"line": 1,
+		"column": 4
+	},
+	"number/plus-exponent": {
+		"reason": "A “+” sign is not allowed in a number, including in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/plus-float": {
+		"reason": "A “+” sign is not allowed. A number without a sign is positive",
+		"line": 1,
+		"column": 4
+	},
+	"number/plus-infinity": {
+		"reason": "A “+” sign is not allowed. A number without a sign is positive",
+		"line": 1,
+		"column": 4
+	},
+	"number/plus-int": {
+		"reason": "A “+” sign is not allowed. A number without a sign is positive",
+		"line": 1,
+		"column": 4
+	},
+	"number/plus-negative-exponent": {
+		"reason": "A “+” sign is not allowed in a number, including in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/radix-prefix-d": {
+		"reason": "Invalid duration 0d10: there is no day unit, because a day is not a fixed length. Write 24h for a fixed 24 hours",
+		"line": 1,
+		"column": 4
+	},
+	"number/trailing-dot-exponent": {
+		"reason": "A decimal point must be followed by a digit",
+		"line": 1,
+		"column": 4
+	},
+	"number/trailing-dot": {
+		"reason": "A decimal point must be followed by a digit",
+		"line": 1,
+		"column": 4
+	},
+	"number/trailing-letters": {
+		"reason": "Invalid number “12abc”. A string value must be quoted, as in '12abc'",
+		"line": 1,
+		"column": 4
+	},
+	"number/trailing-underscore-exponent": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/trailing-underscore-fraction": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/trailing-underscore": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/two-dots": {
+		"reason": "Invalid number “1.2.3”. A value with several dots, such as a version number, must be quoted",
+		"line": 1,
+		"column": 4
+	},
+	"number/underscore-after-dot": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/underscore-after-exponent-marker": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/underscore-before-dot": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/underscore-before-exponent": {
+		"reason": "An underscore in a number must be between two digits",
+		"line": 1,
+		"column": 4
+	},
+	"number/uppercase-binary-prefix": {
+		"reason": "A number prefix is lowercase: 0x, 0o, or 0b",
+		"line": 1,
+		"column": 4
+	},
+	"number/uppercase-exponent-with-fraction": {
+		"reason": "An exponent marker is a lowercase “e”",
+		"line": 1,
+		"column": 4
+	},
+	"number/uppercase-exponent-with-plus": {
+		"reason": "A “+” sign is not allowed in a number, including in an exponent",
+		"line": 1,
+		"column": 4
+	},
+	"number/uppercase-exponent": {
+		"reason": "An exponent marker is a lowercase “e”",
+		"line": 1,
+		"column": 4
+	},
+	"number/uppercase-hex-prefix": {
+		"reason": "A number prefix is lowercase: 0x, 0o, or 0b",
+		"line": 1,
+		"column": 4
+	},
+	"number/uppercase-octal-prefix": {
+		"reason": "A number prefix is lowercase: 0x, 0o, or 0b",
+		"line": 1,
+		"column": 4
+	},
+	"object/comma-first": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"object/comma-on-own-line": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"object/double-comma-across-lines": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"object/double-comma": {
+		"reason": "Expected a key, but found “,”",
+		"line": 1,
+		"column": 10
+	},
+	"object/equals": {
+		"reason": "Expected “:” after the key, but found “=”",
+		"line": 1,
+		"column": 7
+	},
+	"object/extra-close": {
+		"reason": "Expected a line break before the next entry, but found “}”",
+		"line": 1,
+		"column": 10
+	},
+	"object/leading-comma-on-own-line": {
+		"reason": "Expected a key, but found “,”",
+		"line": 2,
+		"column": 2
+	},
+	"object/leading-comma": {
+		"reason": "Expected a key, but found “,”",
+		"line": 1,
+		"column": 5
+	},
+	"object/line-break-inside-block-comment": {
+		"reason": "Expected “,”, a line break, or “}” after an object member, but found “c”. A line break inside a block comment does not separate items",
+		"line": 2,
+		"column": 4
+	},
+	"object/mismatched-close": {
+		"reason": "Expected “,”, a line break, or “}” after an object member, but found “]”",
+		"line": 1,
+		"column": 9
+	},
+	"object/missing-comma-on-one-line-in-multiline": {
+		"reason": "Expected “,”, a line break, or “}” after an object member, but found “c”",
+		"line": 2,
+		"column": 7
+	},
+	"object/missing-comma": {
+		"reason": "Expected “,”, a line break, or “}” after an object member, but found “c”",
+		"line": 1,
+		"column": 10
+	},
+	"object/missing-value-at-close": {
+		"reason": "Expected a value, but found “}”",
+		"line": 3,
+		"column": 1
+	},
+	"object/missing-value-before-comma": {
+		"reason": "Expected a value, but found “,”",
+		"line": 1,
+		"column": 7
+	},
+	"object/missing-value-before-line-break": {
+		"reason": "Expected a value, but found the key c",
+		"line": 3,
+		"column": 2
+	},
+	"object/missing-value": {
+		"reason": "Expected a value, but found “}”",
+		"line": 1,
+		"column": 7
+	},
+	"object/only-comma": {
+		"reason": "Expected a key, but found “,”",
+		"line": 1,
+		"column": 5
+	},
+	"object/second-comma-on-next-line": {
+		"reason": "Expected a key, but found “,”",
+		"line": 3,
+		"column": 2
+	},
+	"object/semicolon-separator": {
+		"reason": "Unexpected “;” after a value",
+		"line": 1,
+		"column": 9
+	},
+	"object/trailing-comma-on-own-line": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 3,
+		"column": 2
+	},
+	"object/unclosed-at-end": {
+		"reason": "Unterminated object: expected “}”",
+		"line": 1,
+		"column": 4
+	},
+	"object/unclosed": {
+		"reason": "Unterminated object: expected “}”",
+		"line": 1,
+		"column": 4
+	},
+	"string/backslash-at-end-of-file": {
+		"reason": "A backslash must be followed by an escape character. Use \\\\ for a literal backslash, or a '...' string",
+		"line": 1,
+		"column": 5
+	},
+	"string/backtick": {
+		"reason": "Expected a value, but found “`”",
+		"line": 1,
+		"column": 4
+	},
+	"string/escape-a": {
+		"reason": "Unknown escape “\\a”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-b": {
+		"reason": "Unknown escape “\\b”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-e": {
+		"reason": "Unknown escape “\\e”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-emoji": {
+		"reason": "Unknown escape “\\😀”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-f": {
+		"reason": "Unknown escape “\\f”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-line-continuation": {
+		"reason": "A backslash must be followed by an escape character. Use \\\\ for a literal backslash, or a '...' string",
+		"line": 1,
+		"column": 6
+	},
+	"string/escape-q": {
+		"reason": "Unknown escape “\\q”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-r": {
+		"reason": "There is no \\r escape, because a carriage return cannot be represented",
+		"line": 1,
+		"column": 6
+	},
+	"string/escape-single-quote": {
+		"reason": "A ' needs no escape inside \"...\"",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-slash": {
+		"reason": "Unknown escape “\\/”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-space": {
+		"reason": "Unknown escape “\\ ”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-uppercase-n": {
+		"reason": "Unknown escape “\\N”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-uppercase-u": {
+		"reason": "Unknown escape “\\U”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-v": {
+		"reason": "Unknown escape “\\v”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-x": {
+		"reason": "Unknown escape “\\x”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escape-zero": {
+		"reason": "Unknown escape “\\0”. The escapes are \\\\, \\\", \\n, \\t, and \\u{…}; use a '...' string for literal backslashes",
+		"line": 1,
+		"column": 5
+	},
+	"string/escaped-multiline": {
+		"reason": "Unterminated string. A \"...\" string must end on the line it starts on; use a block string (\"\"\") for multiple lines",
+		"line": 1,
+		"column": 4
+	},
+	"string/escaped-quote-ends-literal": {
+		"reason": "Unexpected “s” after a value",
+		"line": 1,
+		"column": 9
+	},
+	"string/followed-by-text": {
+		"reason": "Unexpected “y” after a value",
+		"line": 1,
+		"column": 7
+	},
+	"string/literal-multiline": {
+		"reason": "Unterminated string. A '...' string must end on the line it starts on; use a block string (''') for multiple lines",
+		"line": 1,
+		"column": 4
+	},
+	"string/two-strings": {
+		"reason": "Expected a line break before the next entry, but found “'”",
+		"line": 1,
+		"column": 8
+	},
+	"string/unicode-escape-above-max": {
+		"reason": "\\u{110000} is above U+10FFFF, the largest Unicode scalar value",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-carriage-return": {
+		"reason": "A carriage return (U+000D) cannot be represented, so \\u{d} is not allowed",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-empty": {
+		"reason": "A Unicode escape needs one to six hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-four-digit-form": {
+		"reason": "The four-digit \\u0041 form is not an escape. Write \\u{41}",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-high-surrogate": {
+		"reason": "\\u{d800} is a surrogate, which is not a Unicode scalar value",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-in-literal-is-literal-then-unterminated": {
+		"reason": "Unterminated string. A '...' string must end on the line it starts on; use a block string (''') for multiple lines",
+		"line": 1,
+		"column": 4
+	},
+	"string/unicode-escape-leading-zero-on-zero": {
+		"reason": "A Unicode escape may not have leading zeros; write \\u{0}",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-leading-zero": {
+		"reason": "A Unicode escape may not have leading zeros; write \\u{41}",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-low-surrogate": {
+		"reason": "\\u{dfff} is a surrogate, which is not a Unicode scalar value",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-mixed-case": {
+		"reason": "A Unicode escape uses lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-negative": {
+		"reason": "A Unicode escape is written \\u{…} with one to six lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-no-brace": {
+		"reason": "A Unicode escape is written \\u{…} with one to six lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-not-hex": {
+		"reason": "A Unicode escape is written \\u{…} with one to six lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-plus": {
+		"reason": "A Unicode escape is written \\u{…} with one to six lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-seven-digits-leading-zero": {
+		"reason": "A Unicode escape has at most six hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-seven-digits": {
+		"reason": "A Unicode escape has at most six hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-space": {
+		"reason": "A Unicode escape is written \\u{…} with one to six lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-surrogate-pair": {
+		"reason": "\\u{d83d} is a surrogate, which is not a Unicode scalar value",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-unterminated": {
+		"reason": "A Unicode escape is written \\u{…} with one to six lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-uppercase-astral": {
+		"reason": "A Unicode escape uses lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unicode-escape-uppercase": {
+		"reason": "A Unicode escape uses lowercase hexadecimal digits",
+		"line": 1,
+		"column": 5
+	},
+	"string/unquoted-path": {
+		"reason": "Expected a value, but found “/”",
+		"line": 1,
+		"column": 4
+	},
+	"string/unquoted-tilde": {
+		"reason": "Expected a value, but found “~”",
+		"line": 1,
+		"column": 4
+	},
+	"string/unquoted-with-spaces": {
+		"reason": "Unexpected “hello”. A string value must be quoted, as in 'hello world'",
+		"line": 1,
+		"column": 4
+	},
+	"string/unquoted": {
+		"reason": "Unexpected “hello”. A string value must be quoted, as in 'hello'",
+		"line": 1,
+		"column": 4
+	},
+	"string/unterminated-escaped-at-end": {
+		"reason": "Unterminated string. A \"...\" string must end on the line it starts on; use a block string (\"\"\") for multiple lines",
+		"line": 1,
+		"column": 4
+	},
+	"string/unterminated-escaped": {
+		"reason": "Unterminated string. A \"...\" string must end on the line it starts on; use a block string (\"\"\") for multiple lines",
+		"line": 1,
+		"column": 4
+	},
+	"string/unterminated-literal-at-end": {
+		"reason": "Unterminated string. A '...' string must end on the line it starts on; use a block string (''') for multiple lines",
+		"line": 1,
+		"column": 4
+	},
+	"string/unterminated-literal": {
+		"reason": "Unterminated string. A '...' string must end on the line it starts on; use a block string (''') for multiple lines",
+		"line": 1,
+		"column": 4
+	},
+	"whitespace/en-space-in-array": {
+		"reason": "Expected a value, but found U+2002 (EN SPACE; only space, tab, and line feed are whitespace)",
+		"line": 1,
+		"column": 7
+	},
+	"whitespace/ideographic-space": {
+		"reason": "Expected a value, but found U+3000 (IDEOGRAPHIC SPACE; only space, tab, and line feed are whitespace)",
+		"line": 1,
+		"column": 3
+	},
+	"whitespace/line-break-before-comma": {
+		"reason": "A comma must be on the same line as the item before it. The line break already separates the items, so remove the comma",
+		"line": 2,
+		"column": 1
+	},
+	"whitespace/line-separator-between-entries": {
+		"reason": "Unexpected U+2028 (LINE SEPARATOR; only space, tab, and line feed are whitespace) after a value",
+		"line": 1,
+		"column": 5
+	},
+	"whitespace/next-line": {
+		"reason": "Unexpected U+0085 (NEXT LINE; only space, tab, and line feed are whitespace) after a value",
+		"line": 1,
+		"column": 5
+	},
+	"whitespace/no-break-space-after-colon": {
+		"reason": "Expected a value, but found U+00A0 (NO-BREAK SPACE; only space, tab, and line feed are whitespace)",
+		"line": 1,
+		"column": 3
+	},
+	"whitespace/no-break-space-after-value": {
+		"reason": "Unexpected U+00A0 (NO-BREAK SPACE; only space, tab, and line feed are whitespace) after a value",
+		"line": 1,
+		"column": 5
+	},
+	"whitespace/no-break-space-before-key": {
+		"reason": "Expected a key, but found U+00A0 (NO-BREAK SPACE; only space, tab, and line feed are whitespace)",
+		"line": 1,
+		"column": 1
+	},
+	"whitespace/paragraph-separator": {
+		"reason": "Unexpected U+2029 (PARAGRAPH SEPARATOR; only space, tab, and line feed are whitespace) after a value",
+		"line": 1,
+		"column": 5
+	},
+	"whitespace/zero-width-space": {
+		"reason": "Expected a value, but found U+200B (ZERO WIDTH SPACE; only space, tab, and line feed are whitespace)",
+		"line": 1,
+		"column": 3
+	}
+}

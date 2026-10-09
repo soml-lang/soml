@@ -1,0 +1,10 @@
+{
+	"404": {
+		"type": "string",
+		"value": "x"
+	},
+	"2fa": {
+		"type": "bool",
+		"value": "true"
+	}
+}

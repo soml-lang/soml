@@ -1,0 +1,16 @@
+{
+	"a": [
+		{
+			"type": "int",
+			"value": "3"
+		},
+		{
+			"type": "int",
+			"value": "1"
+		},
+		{
+			"type": "int",
+			"value": "2"
+		}
+	]
+}

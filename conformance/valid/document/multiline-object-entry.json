@@ -1,0 +1,16 @@
+{
+	"pool": {
+		"min": {
+			"type": "int",
+			"value": "2"
+		},
+		"max": {
+			"type": "int",
+			"value": "16"
+		}
+	},
+	"name": {
+		"type": "string",
+		"value": "x"
+	}
+}

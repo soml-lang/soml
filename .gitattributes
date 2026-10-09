@@ -1,0 +1,4 @@
+* text=auto eol=lf
+conformance/** -text linguist-detectable=false
+sync-conformance.sh linguist-detectable=false
+benchmark/** -text linguist-detectable=false

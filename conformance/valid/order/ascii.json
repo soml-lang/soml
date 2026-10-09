@@ -1,0 +1,38 @@
+{
+	"0": {
+		"type": "int",
+		"value": "7"
+	},
+	"9": {
+		"type": "int",
+		"value": "9"
+	},
+	"10": {
+		"type": "int",
+		"value": "8"
+	},
+	"b": {
+		"type": "int",
+		"value": "1"
+	},
+	"a": {
+		"type": "int",
+		"value": "2"
+	},
+	"B": {
+		"type": "int",
+		"value": "3"
+	},
+	"A": {
+		"type": "int",
+		"value": "4"
+	},
+	"_": {
+		"type": "int",
+		"value": "5"
+	},
+	"-": {
+		"type": "int",
+		"value": "6"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"document": "a: [1]\n",
+	"path": [
+		"a",
+		"x"
+	],
+	"error": true
+}

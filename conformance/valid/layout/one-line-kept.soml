@@ -1,0 +1,2 @@
+labels: ['prod',   'eu-west',]
+point: {x: 1,y: 2}

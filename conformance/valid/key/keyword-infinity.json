@@ -1,0 +1,10 @@
+{
+	"infinity": {
+		"type": "int",
+		"value": "1"
+	},
+	"-infinity": {
+		"type": "int",
+		"value": "2"
+	}
+}

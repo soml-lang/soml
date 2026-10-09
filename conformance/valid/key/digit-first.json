@@ -1,0 +1,10 @@
+{
+	"404": {
+		"type": "string",
+		"value": "not found"
+	},
+	"500": {
+		"type": "string",
+		"value": "error"
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"document": "a: {\n\tb: {\n\t\tc: 1\n\t\td: 2\n\t}\n}\n",
+	"path": [
+		"a",
+		"b",
+		"c"
+	],
+	"expected": "a: {\n\tb: {\n\t\td: 2\n\t}\n}\n"
+}

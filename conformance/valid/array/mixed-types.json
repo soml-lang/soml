@@ -1,0 +1,30 @@
+{
+	"a": [
+		{
+			"type": "int",
+			"value": "1"
+		},
+		{
+			"type": "string",
+			"value": "two"
+		},
+		{
+			"type": "bool",
+			"value": "true"
+		},
+		{
+			"type": "null",
+			"value": "null"
+		},
+		{
+			"type": "float",
+			"value": "1.5"
+		},
+		{
+			"type": "instant",
+			"value": "2026-01-01T00:00:00Z"
+		},
+		[],
+		{}
+	]
+}
