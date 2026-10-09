@@ -1,0 +1,10 @@
+{
+	"abc": {
+		"type": "int",
+		"value": "1"
+	},
+	"def": {
+		"type": "int",
+		"value": "2"
+	}
+}

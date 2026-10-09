@@ -1,0 +1,13 @@
+{
+	"document": "b: []\n",
+	"path": [
+		"b",
+		0,
+		"c"
+	],
+	"value": {
+		"type": "int",
+		"value": "1"
+	},
+	"expected": "b: [\n\t{\n\t\tc: 1\n\t}\n]\n"
+}

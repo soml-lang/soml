@@ -1,0 +1,13 @@
+{
+	"document": "a: [1, []]\n",
+	"path": [
+		"a",
+		1,
+		0
+	],
+	"value": {
+		"type": "int",
+		"value": "2"
+	},
+	"expected": "a: [1, [2]]\n"
+}

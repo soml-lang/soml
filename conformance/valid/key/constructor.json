@@ -1,0 +1,18 @@
+{
+	"constructor": {
+		"type": "int",
+		"value": "1"
+	},
+	"prototype": {
+		"type": "int",
+		"value": "2"
+	},
+	"toString": {
+		"type": "int",
+		"value": "3"
+	},
+	"hasOwnProperty": {
+		"type": "int",
+		"value": "4"
+	}
+}

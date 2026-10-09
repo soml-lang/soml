@@ -1,0 +1,12 @@
+{
+	"document": "ports: [\n\t80\n\t443\n]\n",
+	"path": [
+		"ports",
+		2
+	],
+	"value": {
+		"type": "int",
+		"value": "8080"
+	},
+	"expected": "ports: [\n\t80\n\t443\n\t8080\n]\n"
+}

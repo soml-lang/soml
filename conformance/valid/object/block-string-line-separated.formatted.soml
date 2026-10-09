@@ -1,0 +1,7 @@
+pool: {
+	description:
+		'''
+		Connections are reused.
+		'''
+	size: 4
+}

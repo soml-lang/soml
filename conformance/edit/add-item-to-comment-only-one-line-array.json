@@ -1,0 +1,12 @@
+{
+	"document": "a: [/* None yet */]\n",
+	"path": [
+		"a",
+		0
+	],
+	"value": {
+		"type": "int",
+		"value": "1"
+	},
+	"expected": "a: [/* None yet */ 1]\n"
+}

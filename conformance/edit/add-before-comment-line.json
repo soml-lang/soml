@@ -1,0 +1,12 @@
+{
+	"document": "a: [\n\t1\n\t# More later\n]\n",
+	"path": [
+		"a",
+		1
+	],
+	"value": {
+		"type": "int",
+		"value": "2"
+	},
+	"expected": "a: [\n\t1\n\t2\n\t# More later\n]\n"
+}

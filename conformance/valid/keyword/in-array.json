@@ -1,0 +1,14 @@
+[
+	{
+		"type": "bool",
+		"value": "true"
+	},
+	{
+		"type": "bool",
+		"value": "false"
+	},
+	{
+		"type": "null",
+		"value": "null"
+	}
+]

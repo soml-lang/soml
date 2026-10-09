@@ -1,0 +1,19 @@
+{
+	"document": "a: 1\n",
+	"path": [
+		"a"
+	],
+	"value": {
+		"b": {
+			"type": "int",
+			"value": "1"
+		},
+		"c": [
+			{
+				"type": "bool",
+				"value": "true"
+			}
+		]
+	},
+	"expected": "a: {\n\tb: 1\n\tc: [\n\t\ttrue\n\t]\n}\n"
+}

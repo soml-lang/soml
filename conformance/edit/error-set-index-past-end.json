@@ -1,0 +1,12 @@
+{
+	"document": "a: [1]\n",
+	"path": [
+		"a",
+		3
+	],
+	"value": {
+		"type": "int",
+		"value": "1"
+	},
+	"error": true
+}

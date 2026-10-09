@@ -1,0 +1,136 @@
+# Configuration for the checkout service.
+# Read at startup. Changes to `limits` and `features` apply on the next deploy.
+
+name = 'checkout'
+version = '4.12.0'
+environment = 'production'
+region = 'eu-west-1'
+deployed-at = 2026-09-19T14:00:00Z
+regions = [
+	{ name = 'eu-west-1', weight = 60, primary = true },
+	{ name = 'eu-central-1', weight = 30, primary = false },
+	{ name = 'us-east-1', weight = 10, primary = false },
+]
+
+[server]
+host = '0.0.0.0'
+port = 8443
+# The load balancer closes idle connections after 60 seconds, so this must be shorter.
+keep-alive = "PT55S"
+read-timeout = "PT10S"
+write-timeout = "PT30S"
+max-header-size = 0x2000
+
+[server.tls]
+certificate = '/etc/checkout/tls/server.crt'
+key = '/etc/checkout/tls/server.key'
+min-version = '1.2'
+ciphers = [
+	'TLS_AES_128_GCM_SHA256',
+	'TLS_AES_256_GCM_SHA384',
+	'TLS_CHACHA20_POLY1305_SHA256',
+]
+
+[database]
+primary = 'postgres://checkout@db-primary.internal:5432/checkout'
+replicas = [
+	'postgres://checkout@db-replica-1.internal:5432/checkout',
+	'postgres://checkout@db-replica-2.internal:5432/checkout',
+]
+# Runs before every migration. Keep it idempotent.
+setup = '''
+SET statement_timeout = '15s';
+SET lock_timeout = '5s';
+SET idle_in_transaction_session_timeout = '60s';'''
+
+[database.pool]
+min = 4
+max = 32
+idle-timeout = "PT5M"
+acquire-timeout = "PT2S"
+
+[cache]
+url = 'redis://cache.internal:6379/2'
+ttl = "PT15M"
+max-entries = 100_000
+eviction = 'lru'
+
+[queue]
+broker = 'amqp://queue.internal:5672'
+exchanges = [
+	{ name = 'orders', type = 'topic', durable = true },
+	{ name = 'payments', type = 'topic', durable = true },
+	{ name = 'notifications', type = 'fanout', durable = false },
+]
+
+[queue.retry]
+attempts = 5
+initial-delay = "PT0.5S"
+max-delay = "PT30S"
+multiplier = 1.5
+
+[payments]
+provider = 'stripe'
+currency = 'EUR'
+capture = 'automatic'
+# Orders above this amount, in cents, need manual review.
+review-threshold = 250_000
+
+[payments.fees]
+percentage = 1.4
+fixed = 25
+
+[payments.webhooks]
+path = '/webhooks/payments'
+tolerance = "PT5M"
+events = [
+	'payment_intent.succeeded',
+	'payment_intent.payment_failed',
+	'charge.refunded',
+	'charge.dispute.created',
+]
+
+[limits]
+requests-per-minute = 1200
+burst = 200
+max-body-size = 0x10_0000
+max-items-per-order = 50
+cpu = 1.5
+memory-mb = 1024
+
+[features]
+express-checkout = true
+gift-cards = true
+buy-now-pay-later = false
+address-autocomplete = true
+new-tax-engine = false
+
+[logging]
+level = 'info'
+format = 'json'
+sample-rate = 0.25
+redact = ['card.number', 'card.cvc', 'customer.email', 'customer.phone']
+
+[logging.file]
+path = '/var/log/checkout/service.log'
+mode = 0o640
+max-size-mb = 100
+max-files = 10
+
+[telemetry]
+endpoint = 'https://otel-collector.internal:4317'
+interval = "PT15S"
+
+[telemetry.attributes]
+team = 'payments'
+'service.tier' = 'critical'
+
+[telemetry.histograms]
+request-duration = [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 0.75, 1.5, 2.5]
+
+# Shown on the status page during planned maintenance.
+[maintenance]
+enabled = false
+message = '''
+Checkout is down for planned maintenance.
+We expect to be back by 06:00 UTC. Thank you for your patience.'''

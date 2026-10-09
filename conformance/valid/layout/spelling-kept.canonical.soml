@@ -1,0 +1,9 @@
+big: 1000000
+db: {
+	host: 'h'
+}
+mask: 255
+mode: 420
+name: 'x'
+path: "a\tb"
+wait: 1h30m

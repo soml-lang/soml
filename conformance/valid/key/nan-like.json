@@ -1,0 +1,10 @@
+{
+	"nan": {
+		"type": "int",
+		"value": "1"
+	},
+	"NaN": {
+		"type": "int",
+		"value": "2"
+	}
+}

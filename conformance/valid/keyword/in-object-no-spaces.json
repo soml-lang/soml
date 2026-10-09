@@ -1,0 +1,14 @@
+{
+	"a": {
+		"type": "bool",
+		"value": "true"
+	},
+	"b": {
+		"type": "bool",
+		"value": "false"
+	},
+	"c": {
+		"type": "null",
+		"value": "null"
+	}
+}

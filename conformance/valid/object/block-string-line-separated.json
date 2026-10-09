@@ -1,0 +1,12 @@
+{
+	"pool": {
+		"description": {
+			"type": "string",
+			"value": "Connections are reused."
+		},
+		"size": {
+			"type": "int",
+			"value": "4"
+		}
+	}
+}

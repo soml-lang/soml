@@ -1,0 +1,8 @@
+{
+	"document": "a: 1\n",
+	"path": [
+		"b",
+		"c"
+	],
+	"expected": "a: 1\n"
+}
