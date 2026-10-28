@@ -56,11 +56,11 @@ Keys are the exception. A key is always a string and is never converted, so `404
 
 Use `'` by default. Use `"` when you need an escape, or when the text contains a `'`. Shell and TOML use the same rule.
 
-### Why `#` for comments?
+### Why `#` for comments rather than `//`?
 
-Because `#` is one character, not two like `//`, so it is less noise on every comment line. It is also the comment character in almost all config files that people already edit: YAML, TOML, `.env`, `.gitignore`, Dockerfiles, shell scripts, and Python.
+Because `#` is one character, not two like `//`, so every comment line is shorter and there is less to type. It is also the comment character in almost all config files that people already edit: YAML, TOML, `.env`, `.gitignore`, Dockerfiles, shell scripts, and Python. A file that moves from one of those to SOML keeps its comments as they are, and the person editing it keeps one habit instead of two.
 
-`/* */` does the other job: a comment that spans many lines, or that is in the middle of a line. SOML does not have `//`, because it does the same job as `#`, and a second spelling of one thing must earn its place.
+`/* */` does the other job: a comment that spans many lines, or that is in the middle of a line.
 
 ### Why is indentation not significant?
 
@@ -122,13 +122,21 @@ Because readers do not agree on what it means. C and YAML 1.1 read it as the oct
 
 ### Why must hex digits be uppercase?
 
-Because hex that stands alone is read as bytes, and bytes are often written in uppercase, as in `#FF8800` and `FF:FF:FF`. So `0xFF` is correct and `0xff` is an error. One fixed case means that tools never have to normalize it. The prefix is lowercase (`0x`, `0o`, `0b`), and so are the digits in a `\u{…}` escape, because that escape is inside text.
+Because hex that stands alone is read as bytes, and bytes are often written in uppercase, as in `#FF8800` and `FF:FF:FF`. So `0xFF` is correct and `0xff` is an error. One fixed case means that tools never have to normalize it. The prefix is lowercase (`0x`, `0o`, `0b`), and so are the digits in a `\u{…}` escape, because that escape is inside text. The two rules differ on purpose; the next entry says why.
+
+### Why are the digits lowercase in `\u{e9}` but uppercase in `0xFF`?
+
+Because the case is there to separate a prefix from a value, and only the int has one. `0x` is lowercase, so `0xdeadbeef` reads as one word while `0xDEADBEEF` shows where the value starts, and hex ints often come from datasheets, color values, and MAC addresses, which write them uppercase. In an escape the `{` shows where the digits start, and capitals are slower to read inside text. Unicode writes code points as `U+00E9`, but that is a code point notation, not a string escape.
 
 ### Why a duration type?
 
 Because `timeout: 30` makes every reader guess the unit. That is why config files have keys such as `timeout-ms` and `interval-seconds`. `30s`, `1h30m`, and `250ms` contain their unit, and the value is an exact count of nanoseconds. The units come from Go, with stricter rules: the units go from largest to smallest, and each is used at most once.
 
 There is no `d` unit, because a day can be 23 or 25 hours when daylight saving time changes. Write `24h`. SOML does not use ISO 8601's `PT1H30M`, because it is hard to read, and `P1M` is one month while `PT1M` is one minute.
+
+### How do I convert a duration to seconds, or to another unit?
+
+A duration stays a duration, so `1h` does not become `3600` when it is parsed. Its value is an exact signed count of nanoseconds, and the format has no unit option, so a file always means the same thing. A library maps it to its language's duration type, and you convert at the point of use. The JavaScript library reads it as a [`Temporal.Duration`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal/Duration), so `parse('grace: 1h').grace.total('seconds')` gives `3600`.
 
 ### Why is there only one date and time type?
 

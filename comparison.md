@@ -334,14 +334,13 @@ TOML is the closest thing in this document to a correct answer, and SOML borrows
 |---|---|---|
 | Top-level value | always a hash table | an object or an array; object braces optional |
 | Top-level array | not possible | allowed |
-| Nesting | table headers, dotted keys, and inline tables | braces |
+| Ways to nest | three: table headers, dotted keys, and inline tables | one: braces |
 | Dotted keys | allowed anywhere, and nesting also depends on table headers, which are stateful and order-dependent | none: a `.` in a bare key is an error |
-| Temporal types | four, and no duration | an instant and a duration |
-| Ways to nest | three (headers, dotted keys, inline tables) | one (braces) |
+| Temporal types | four, and no duration | an instant, and a duration such as `30s` or `1h30m` |
 | A key that looks like a float (`3.14`) | two nested keys, and the spec warns against it | an error, and `'3.14'` is the key |
 | Commas in a multi-line array | required between items | optional, a line break separates items |
-| Duration type | none | `30s`, `1h30m` |
 | Canonical form | none | defined, so equal values give equal bytes |
+| Hex digit case | either, so `0xDEADBEEF` and `0xdeadbeef` are one value in two spellings | fixed: uppercase in an int, lowercase in `\u{…}` |
 | Design rationale in the spec | three sentences, no FAQ | a [design principles](spec.md#design-principles) section |
 
 **TOML gives up on data, on purpose, and says so.** From the TOML README:

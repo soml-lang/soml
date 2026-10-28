@@ -222,7 +222,7 @@ Leading zeros are errors in the decimal form, so `0.5` is fine and `00` is not, 
 
 The uppercase rule is a readability rule. Hexadecimal is written uppercase wherever it is read as bytes, as in `#FF8800`, `FF:FF:FF`, and a memory dump, so `0xFF` reads correctly at a glance while `0xff` reads like something a tool lowercased on its way past.
 
-Case is fixed per construct rather than forced to one case everywhere: a hexadecimal integer is uppercase because that is how hex reads when it stands alone, and a `\u{…}` escape is lowercase because it sits inside quoted text. What matters is that each is pinned to one case, so there is nothing to normalise and nothing for two implementations to disagree about.
+Case is fixed per construct rather than forced to one case everywhere: a hexadecimal integer is uppercase because the lowercase `x` does not run into the digits, as in `0xFF`, and an escape is lowercase because it sits inside quoted text, as in `\u{e9}`. What matters is that each is pinned to one case, so there is nothing to normalise and nothing for two implementations to disagree about.
 
 A float is an IEEE 754 binary64 value written as a decimal number with a fractional part, an exponent, or both, or as `infinity` or `-infinity`. Underscores follow the same rule as for ints.
 

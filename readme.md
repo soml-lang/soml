@@ -139,6 +139,63 @@ maintainers: [
 healthcheck: {path: '/health', interval: 10s, grace: 1.5s}
 ```
 
+## Why not YAML?
+
+SOML keeps what I like about YAML: comments, no braces around the file, no commas at the ends of lines, and keys without quotes. It removes what hurts: in YAML, the content of a value decides its type. In SOML, the syntax decides, so `'no'` is a string, `3.10` is a float, and `2` is an int, in every implementation.
+
+What SOML adds:
+
+- Block comments with `/* */`, in addition to `#`.
+- Durations such as `30s` and `1h30m`, so `timeout: 30` no longer makes the reader guess the unit.
+- Instants such as `2026-09-19T14:00:00Z`. YAML 1.2 dropped timestamps, but many parsers still read them, so a date in YAML may or may not be a string.
+- A canonical form, so equal values give equal bytes for hashing and signing. YAML defines one for scalars only.
+- A formatter whose rules are part of the spec. It keeps your comments, key order, and the spelling of each value. YAML says comments are not content, so tools may drop them.
+- Editing rules, so a tool can change one value and keep the comments and layout of the rest.
+- Error messages that usually say what to write instead.
+
+What SOML fixes:
+
+- **Values change type without warning.** In PyYAML (YAML 1.1), `country: no` is `false`, `zip: 01234` is octal 668, and `time: 22:22` is base-60 1342. YAML 1.2 fixed those, but most of the ecosystem still follows 1.1, and 1.2 still guesses: `version: 3.10` is the float `3.1`, and `~`, `Null`, and an empty value are null. SOML strings always have quotes, so `country: no` is an error.
+- **Keys are not always strings.** `1: x` gives an integer key in YAML, and PyYAML reads `on: x` as the boolean `true`. SOML keys are always strings, so `404:` is the key `'404'`.
+- **Indentation is the structure.** One space too few moves a key into another object, and the file still parses, which is why YAML forbids tabs there. SOML gets its structure from braces and line breaks, so indentation only helps the reader, except in a block string, where it is text.
+- **Block strings add a newline.** YAML's default `|` keeps a trailing `\n` in the value; SOML does not.
+- **Large ints lose precision.** js-yaml turns `id: 9007199254740993` into `9007199254740992`. A SOML int is an exact int64; a larger one is an error.
+- **Duplicate keys go unnoticed.** For `a: 1` then `a: 2`, PyYAML keeps `2` and says nothing. The spec forbids duplicates, but after type resolution `1:` and `01:` may or may not collide, depending on the schema. SOML compares the decoded strings and reports each duplicate.
+- **A missing value is null.** `timeout:` with no value is null in YAML, and a file with only comments is null in PyYAML. SOML rejects both, so a forgotten value cannot pass as a default.
+- **The language is large.** YAML has two syntaxes for every list and map, two block string styles with three newline rules, indentation indicators, anchors, aliases, tags, multiple documents per file, three processing stages, and three recommended schemas. SOML has one syntax for each, one block string style, and one set of type rules.
+- **Parsers disagree.** In the YAML test matrix (newest snapshot 2022), PyYAML fails 73 of 402 cases. `2024-01-01` is a date in PyYAML and a string in js-yaml 5, and `1_000` is `1000` in PyYAML and a string in js-yaml. SOML implementations share one [conformance suite](conformance) of nearly 1000 cases.
+- **Two features are a security risk.** Aliases make YAML bombs possible: a small file expands into billions of nodes. Tags let a loader construct objects, and PyYAML has had four remote code execution CVEs rated 9.8. `safe_load` is opt-in, and even a loader named “safe” can turn aliases on. SOML has neither, one way to load, and limits on nesting and ranges.
+
+## Why not TOML?
+
+SOML keeps what TOML gets right: predictable types, literal strings, insignificant indentation, and duplicate keys as errors. It removes what hurts: table rules where a key's meaning depends on what came before it, and values that parsers silently round, truncate, or read differently. A SOML file means one thing, no matter where a line sits or which parser reads it.
+
+What SOML adds:
+
+- Top-level arrays. A TOML file is always a table, so a list of records needs a wrapper key.
+- Block comments with `/* */`, in addition to `#`.
+- Line breaks in place of commas, so a multi-line array needs none.
+- Durations such as `30s` and `1h30m`, so `timeout = 30` no longer makes the reader guess the unit.
+- One instant type in place of four date and time types, three of which are not points in time.
+- A canonical form, so equal values give equal bytes for hashing and signing.
+- A formatter whose rules are part of the spec, so every conforming formatter gives the same output.
+
+What SOML fixes:
+
+- **Three ways to nest.** `[server]` with `port = 8080`, `server.port = 8080`, and `server = {port = 8080}` all give the same table, each with its own rules. Projects mix them, often in one file. SOML has one way: braces.
+- **Later lines can change earlier tables.** Even at the end of a file, `[[users]]` adds to an earlier array, `[server.tls]` to an earlier table, and a bare key to the last table. An attacker who can put a newline into one value can add a user with `role = 'admin'`, as CVE-2026-44244 injected a `[core]` section into `.git/config` for code execution. BurntSushi/toml even lets a later `users = ['mallory']` under `[auth]` silently replace an earlier `[auth.users.alice]` table. In SOML, earlier objects and arrays are closed.
+- **Table headers have hidden scope.** `[server]` moves every following key into `server`, even `timeout = 30`, with no way back to the root. SOML braces make boundaries explicit.
+- **Dotted paths behave differently from headers.** Inside `[server]`, `logging.level = 'debug'` is `server.logging.level`, but `[logging]` is a root table, and `server.port = 8080` is `server.server.port`. In SOML, a key belongs to the braces around it.
+- **Extension rules depend on how a table was made.** `[a.b]` then `[a]` is valid, but `a.b.c = 1` then `[a]` is not. Header and dotted-key tables can be extended, inline tables cannot, and `[[servers]]` can append to an array of tables, but not to `servers = []`. SOML has no implicit tables, and one syntax each for objects and arrays.
+- **Arrays of tables depend on order.** `[servers.tls]` attaches to the most recent `[[servers]]`, so moving a section can silently attach it to another server. SOML array elements are self-contained objects.
+- **Dotted keys silently change structure.** `3.14 = 'pi'`, `example.com`, and `tls.crt` are nested keys, and `servers.0.port` creates the key `'0'`, not an array element. SOML needs quotes for a literal dot.
+- **Renaming requires chasing paths.** Headers such as `[server.database]` and `[server.cache]` repeat the parent name, so a rename that misses one silently creates a separate object. SOML names the parent once.
+- **Reindentation changes strings.** Multiline strings keep their indentation and the newline before the closing delimiter, and newline normalization is platform-dependent. SOML dedents block strings, adds no trailing newline, and requires LF.
+- **No `null`, but `nan`.** TOML cannot tell an explicit null from a missing key, so writers must drop it or fail: `@iarna/toml` silently drops a `null` value, and Python's `toml` turns `None` in an array into the string `'None'`. TOML has `nan`. SOML has `null`, and no `nan`, which is not equal to itself.
+- **Numbers and times change between parsers.** `1e999` is infinity in Python's `tomllib` and smol-toml, but an error in Go and Rust, and `1e-400` is zero in all of them. `.123456789` seconds is exact in Go and Rust, `.123456` in `tomllib`, and `.123` in smol-toml. `9223372036854775808` works in `tomllib` but not in Rust's `toml`. SOML ints are exact int64, instants keep nanoseconds, and a float that does not fit is an error.
+- **Broken input passes.** TOML reads an empty or comment-only file as an empty table, permits replacing malformed UTF-8 with `U+FFFD`, and leaves BOM handling unspecified. SOML rejects all of these, so an emptied config cannot fall back to defaults.
+- **JSON must be rewritten.** TOML uses `=`, so a JSON object cannot be pasted in, not even as a value. SOML uses `:`, so hand-written JSON is usually valid SOML, and the syntax is already familiar from JSON, YAML, and JavaScript.
+
 ## Comparison with other formats
 
 JSON is unambiguous but noisy to write: the file needs braces around it, every item needs a comma, every key needs quotes, and there are no comments. YAML is pleasant to write but ambiguous to read. SOML keeps JSON's data model and strictness, and also decides what JSON leaves to each implementation. From YAML, it takes comments, multi-line strings, and a top level with no braces or commas, but not implicit typing, significant indentation, aliases, or tags. From TOML, it takes literal strings and the split between int and float, but it allows a top-level array and has no table headers or dotted keys.
@@ -172,7 +229,9 @@ The format is defined in the [specification](spec.md), which also gives the reas
 - [Python](https://github.com/soml-lang/soml-python)
 - [Go](https://github.com/soml-lang/soml-go)
 - [Ruby](https://github.com/soml-lang/soml-ruby)
+- [C++](https://github.com/soml-lang/soml-cplusplus)
 - [C](https://github.com/soml-lang/soml-c)
+- [Java](https://github.com/soml-lang/soml-java)
 - [Dart](https://github.com/soml-lang/soml-dart)
 - [PHP](https://github.com/soml-lang/soml-php)
 - [Zsh](https://github.com/soml-lang/soml-zsh)
@@ -181,8 +240,18 @@ The format is defined in the [specification](spec.md), which also gives the reas
 
 - [ESLint plugin](https://github.com/soml-lang/eslint-soml)
 - [Prettier plugin](https://github.com/soml-lang/prettier-plugin-soml)
+- [highlight.js syntax highlighting](https://github.com/soml-lang/highlightjs-soml)
+- [Prism syntax highlighting](https://github.com/PrismJS/prism/pull/4187) *(👍 the PR to show your support)*
+
+## Editor plugins
+
 - [Visual Studio Code](https://github.com/soml-lang/vscode-soml)
 - [Sublime Text](https://github.com/soml-lang/sublime-soml)
+- [TextMate](https://github.com/soml-lang/textmate-soml)
+
+## Apps
+
+- [SOML Editor](https://sindresorhus.com/soml-editor) - macOS app to view and edit SOML files and Quick Look support
 
 ## Linting
 
