@@ -14,7 +14,7 @@
 
 <br>
 
-SOML is a config format that is pleasant to write and easy to read. The top level needs no braces, keys need no quotes, line breaks replace commas, and comments go almost anywhere. A value's type comes from its syntax, never from its content, so what you see is what you get: `'123'` is a string and `123` is an int. Dates like `2026-09-19`, instants like `2026-09-19T14:00:00Z`, and durations like `30s` are real values, so nobody has to guess the unit of `timeout: 30`. Paths and regexes need no escaping, and prose goes in block strings. One canonical form and a shared conformance suite mean every implementation reads your file the same way. JSON has the strictness but not the comfort: quotes, commas, and braces everywhere, and no comments. YAML has the comfort but not the clarity: `-` list markers, nested indentation, and types guessed from content, so `country: no` becomes `false` and `version: 3.10` becomes `3.1`. SOML gives you the comfort and the strictness, without the guessing.
+SOML is a config format that is pleasant to write and easy to read. The top level needs no braces, keys need no quotes, line breaks replace commas, and comments go almost anywhere. A value's type comes from its syntax, never from its content, so the type you see is the type you get: `'123'` is a string and `123` is an int. Dates like `2026-09-19`, instants like `2026-09-19T14:00:00Z`, and durations like `30s` are real values, so nobody has to guess the unit of `timeout: 30`. Paths and regexes need no escaping, and prose goes in block strings. One canonical form and a shared conformance suite mean every implementation reads your file the same way. JSON has the strictness but not the comfort: quotes, commas, and braces everywhere, and no comments. YAML has the comfort but not the clarity: `-` list markers, nested indentation, and types guessed from content, so `country: no` becomes `false`, and `version: 3.10` is a float while `version: 3.10.1` is a string. SOML gives you the comfort and the strictness, without the guessing.
 
 <br>
 
@@ -66,7 +66,7 @@ Its design rests on one rule: **a value's type comes from its syntax, never from
 ## Why SOML
 
 - **Less noise than JSON, and comments.** Keys need no quotes, even with dashes, a line break replaces a comma, and the top level needs no braces. Comments are allowed wherever whitespace may go.
-- **What you see is the type.** A string always has quotes, and a value without quotes must be a number, a date, an instant, a duration, or a keyword, or the file has an error. So `country: no` is an error rather than `false`, and `'10.20'` and `10.20` are a string and a float, exactly as written.
+- **What you see is the type.** A string always has quotes, and a value without quotes must be a number, a date, an instant, a duration, or a keyword, or the file has an error. So `country: no` is an error rather than `false`, and `'10.20'` is always a string and `10.20` is always a float (IEEE 754 binary64).
 - **Strict where JSON is vague.** Duplicate keys, lone surrogates, and numbers out of range are errors, not behavior that each parser decides. An int is exact to 64 bits, and `3` and `3.0` stay different types.
 - **Pleasant to write.** Literal strings, so paths and regexes need no escaping, and dedented block strings for prose.
 - **Dates, instants, and durations are values.** `2026-09-19` is a calendar date, `2026-09-19T14:00:00Z` is an instant, and `1h30m` is a duration, so no reader has to parse a string or guess a unit.
@@ -102,7 +102,7 @@ description:
 	because the closing delimiter sits at one tab.
 	'''
 
-# Numbers: int and float are different types.
+# Numbers: int and float are different types. A float is IEEE 754 binary64.
 replicas: 3
 ratio: 0.75
 budget: 1_000_000
@@ -158,7 +158,7 @@ What SOML adds:
 
 What SOML fixes:
 
-- **Values change type without warning.** In PyYAML (YAML 1.1), `country: no` is `false`, `zip: 01234` is octal 668, and `time: 22:22` is base-60 1342. YAML 1.2 fixed those, but most of the ecosystem still follows 1.1, and 1.2 still guesses: `version: 3.10` is the float `3.1`, and `~`, `Null`, and an empty value are null. SOML strings always have quotes, so `country: no` is an error.
+- **Values change type without warning.** In PyYAML (YAML 1.1), `country: no` is `false`, `zip: 01234` is octal 668, and `time: 22:22` is base-60 1342. YAML 1.2 fixed those, but most of the ecosystem still follows 1.1, and 1.2 still guesses: `version: 3.10` is a float but `version: 3.10.1` is a string, and `~`, `Null`, and an empty value are null. SOML strings always have quotes, so `country: no` and `version: 3.10.1` are errors.
 - **Keys are not always strings.** `1: x` gives an integer key in YAML, and PyYAML reads `on: x` as the boolean `true`. SOML keys are always strings, so `404:` is the key `'404'`.
 - **Indentation is the structure.** One space too few moves a key into another object, and the file still parses, which is why YAML forbids tabs there. SOML gets its structure from braces and line breaks, so indentation only helps the reader, except in a block string, where it is text.
 - **Block strings add a newline.** YAML's default `|` keeps a trailing `\n` in the value; SOML does not.
@@ -186,17 +186,17 @@ What SOML adds:
 What SOML fixes:
 
 - **Three ways to nest.** `[server]` with `port = 8080`, `server.port = 8080`, and `server = {port = 8080}` all give the same table, each with its own rules. Projects mix them, often in one file. SOML has one way: braces.
-- **Later lines can change earlier tables.** Even at the end of a file, `[[users]]` adds to an earlier array, `[server.tls]` to an earlier table, and a bare key to the last table. An attacker who can put a newline into one value can add a user with `role = 'admin'`, as CVE-2026-44244 injected a `[core]` section into `.git/config` for code execution. BurntSushi/toml even lets a later `users = ['mallory']` under `[auth]` silently replace an earlier `[auth.users.alice]` table. In SOML, earlier objects and arrays are closed.
+- **Later lines can change earlier tables.** Even at the end of a file, `[[users]]` adds to an earlier array, `[server.tls]` to an earlier table, and a bare key to the last table. An attacker who can put a newline into one value can add a user with `role = 'admin'`. The same trick hit git config, which is not TOML but is also line-oriented: CVE-2026-44244 injected a `[core]` section into `.git/config` for code execution. BurntSushi/toml even lets a later `users = ['mallory']` under `[auth]` silently replace an earlier `[auth.users.alice]` table. In SOML, earlier objects and arrays are closed.
 - **Table headers have hidden scope.** `[server]` moves every following key into `server`, even `timeout = 30`, with no way back to the root. SOML braces make boundaries explicit.
 - **Dotted paths behave differently from headers.** Inside `[server]`, `logging.level = 'debug'` is `server.logging.level`, but `[logging]` is a root table, and `server.port = 8080` is `server.server.port`. In SOML, a key belongs to the braces around it.
 - **Extension rules depend on how a table was made.** `[a.b]` then `[a]` is valid, but `a.b.c = 1` then `[a]` is not. Header and dotted-key tables can be extended, inline tables cannot, and `[[servers]]` can append to an array of tables, but not to `servers = []`. SOML has no implicit tables, and one syntax each for objects and arrays.
 - **Arrays of tables depend on order.** `[servers.tls]` attaches to the most recent `[[servers]]`, so moving a section can silently attach it to another server. SOML array elements are self-contained objects.
-- **Dotted keys silently change structure.** `3.14 = 'pi'`, `example.com`, and `tls.crt` are nested keys, and `servers.0.port` creates the key `'0'`, not an array element. SOML needs quotes for a literal dot.
+- **Dotted keys silently change structure.** `3.14 = 'pi'`, `example.com`, and `tls.crt` are nested keys, and `servers.0.port` creates the key `'0'`, not an array element. SOML has no dotted keys: a dot in a bare key is an error, so you quote it. TOML also needs quotes for a literal dot, but without them it nests silently.
 - **Renaming requires chasing paths.** Headers such as `[server.database]` and `[server.cache]` repeat the parent name, so a rename that misses one silently creates a separate object. SOML names the parent once.
 - **Reindentation changes strings.** Multiline strings keep their indentation and the newline before the closing delimiter, and newline normalization is platform-dependent. SOML dedents block strings, adds no trailing newline, and requires LF.
 - **No `null`, but `nan`.** TOML cannot tell an explicit null from a missing key, so writers must drop it or fail: `@iarna/toml` silently drops a `null` value, and Python's `toml` turns `None` in an array into the string `'None'`. TOML has `nan`. SOML has `null`, and no `nan`, which is not equal to itself.
 - **Numbers and times change between parsers.** `1e999` is infinity in Python's `tomllib` and smol-toml, but an error in Go and Rust, and `1e-400` is zero in all of them. `.123456789` seconds is exact in Go and Rust, `.123456` in `tomllib`, and `.123` in smol-toml. `9223372036854775808` works in `tomllib` but not in Rust's `toml`. SOML ints are exact int64, instants keep nanoseconds, and a float that does not fit is an error.
-- **Broken input passes.** TOML reads an empty or comment-only file as an empty table, permits replacing malformed UTF-8 with `U+FFFD`, and leaves BOM handling unspecified. SOML rejects all of these, so an emptied config cannot fall back to defaults.
+- **Broken input passes.** TOML reads an empty or comment-only file as an empty table and leaves BOM handling to the parser. SOML rejects both, so an emptied config cannot fall back to defaults.
 - **JSON must be rewritten.** TOML uses `=`, so a JSON object cannot be pasted in, not even as a value. SOML uses `:`, so hand-written JSON is usually valid SOML, and the syntax is already familiar from JSON, YAML, and JavaScript.
 
 ## Comparison with other formats
